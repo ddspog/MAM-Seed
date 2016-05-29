@@ -1,7 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
-import utilsPagination from 'algular-utils-pagination';
+import utilsPagination from 'angular-utils-pagination';
 
 import {
     Counts
@@ -11,6 +11,9 @@ import template from './partiesList.html';
 import {
     Parties
 } from '../../../api/parties/index';
+import {
+    name as PartiesSort
+} from '../partiesSort/partiesSort';
 import {
     name as PartyAdd
 } from '../partyAdd/partyAdd';
@@ -29,13 +32,13 @@ class PartiesList {
         this.sort = {
             name: 1
         };
-
+        this.searchString = '';
 
         this.subscribe('parties', () => [{
             limit: parseInt(this.perPage),
             skip: parseInt((this.getReactively('page') - 1) * this.perPage),
             sort: this.getReactively('sort')
-        }]);
+        }, this.getReactively('searchString')]);
 
         this.helpers({
             parties() {
@@ -52,6 +55,10 @@ class PartiesList {
     pageChanged(newPage) {
         this.page = newPage;
     }
+
+    sortChanged(sort) {
+        this.sort = sort;
+    }
 }
 
 const name = 'partiesList';
@@ -61,6 +68,7 @@ export default angular.module(name, [
         angularMeteor,
         uiRouter,
         utilsPagination,
+        PartiesSort,
         PartyAdd,
         PartyRemove
     ]).component(name, {
