@@ -2,13 +2,20 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
-import { Meteor } from 'meteor/meteor';
+import {
+    Meteor
+} from 'meteor/meteor';
 
 import template from './partyDetails.html';
 import {
     Parties
 } from '../../../api/parties/index';
-import { name as PartyUninvited } from '../partyUninvited/partyUninvited';
+import {
+    name as PartyUninvited
+} from '../partyUninvited/partyUninvited';
+import {
+    name as PartyMap
+} from '../partyMap/partyMap';
 
 class PartyDetails {
     constructor($stateParams, $scope, $reactive) {
@@ -27,10 +34,21 @@ class PartyDetails {
                     _id: $stateParams.partyId
                 });
             },
-            users(){
-              return Meteor.users.find({})
+            users() {
+                return Meteor.users.find({})
+            },
+            isLoggedIn() {
+                return !!Meteor.userId();
             }
         });
+    }
+
+    canInvite() {
+        if (!this.party) {
+            return false;
+        }
+
+        return !this.party.public && this.party.owner === Meteor.userId();
     }
 
     save() {
@@ -40,7 +58,8 @@ class PartyDetails {
             $set: {
                 name: this.party.name,
                 description: this.party.description,
-                public: this.party.public
+                public: this.party.public,
+                location: this.party.location
             }
         }, (error) => {
             if (error) {
@@ -58,7 +77,8 @@ const name = 'partyDetails';
 export default angular.module(name, [
         angularMeteor,
         uiRouter,
-        PartyUninvited
+        PartyUninvited,
+        PartyMap
     ]).component(name, {
         template,
         controllerAs: name,
@@ -73,13 +93,13 @@ function config($stateProvider) {
         url: '/parties/:partyId',
         template: '<party-details></party-details>',
         resolve: {
-          currentUser($q) {
-            if (Meteor.userId() === null) {
-              return $q.reject('AUTH_REQUIRED');
-            } else {
-              return $q.resolve();
+            currentUser($q) {
+                if (Meteor.userId() === null) {
+                    return $q.reject('AUTH_REQUIRED');
+                } else {
+                    return $q.resolve();
+                }
             }
-          }
         }
     });
 }

@@ -15,6 +15,9 @@ import {
     name as PartiesSort
 } from '../partiesSort/partiesSort';
 import {
+    name as PartiesMap
+} from '../partiesMap/partiesMap';
+import {
     name as PartyAdd
 } from '../partyAdd/partyAdd';
 import {
@@ -23,6 +26,16 @@ import {
 import {
     name as PartyCreator
 } from '../partyCreator/partyCreator';
+import {
+    name as PartyRsvp
+} from '../partyRsvp/partyRsvp';
+import {
+    name as PartyRsvpsList
+} from '../partyRsvpsList/partyRsvpsList';
+import {
+    name as PartyUnanswered
+} from '../partyUnanswered/partyUnanswered';
+
 
 /**
  *  PartiesList Component
@@ -44,7 +57,9 @@ class PartiesList {
             limit: parseInt(this.perPage),
             skip: parseInt((this.getReactively('page') - 1) * this.perPage),
             sort: this.getReactively('sort')
-        }, this.getReactively('searchString')]);
+        }, this.getReactively('searchText')]);
+
+        this.subscribe('users');
 
         this.helpers({
             parties() {
@@ -54,8 +69,18 @@ class PartiesList {
             },
             partiesCount() {
                 return Counts.get('numberOfParties');
+            },
+            isLoggedIn() {
+              return !!Meteor.userId();
+            },
+            currentUserId() {
+              return Meteor.userId();
             }
         });
+    }
+
+    isOwner(party) {
+      return this.isLoggedIn && party.owner === this.currentUserId;
     }
 
     pageChanged(newPage) {
@@ -75,9 +100,13 @@ export default angular.module(name, [
         uiRouter,
         utilsPagination,
         PartiesSort,
+        PartiesMap,
         PartyAdd,
         PartyRemove,
-        PartyCreator
+        PartyCreator,
+        PartyRsvp,
+        PartyRsvpsList,
+        PartyUnanswered
     ]).component(name, {
         template,
         controllerAs: name,
