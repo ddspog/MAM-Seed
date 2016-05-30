@@ -32,9 +32,6 @@ import {
 import {
     name as PartyRsvpsList
 } from '../partyRsvpsList/partyRsvpsList';
-import {
-    name as PartyUnanswered
-} from '../partyUnanswered/partyUnanswered';
 
 
 /**
@@ -105,8 +102,7 @@ export default angular.module(name, [
         PartyRemove,
         PartyCreator,
         PartyRsvp,
-        PartyRsvpsList,
-        PartyUnanswered
+        PartyRsvpsList
     ]).component(name, {
         template,
         controllerAs: name,
