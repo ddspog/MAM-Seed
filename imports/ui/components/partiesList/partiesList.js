@@ -7,7 +7,9 @@ import {
     Counts
 } from 'meteor/tmeasday:publish-counts';
 
-import template from './partiesList.html';
+import partiesListTemplate from './partiesList.html';
+import pageButtonTemplate from './pageButton.html';
+
 import {
     Parties
 } from '../../../api/parties/index';
@@ -18,8 +20,8 @@ import {
     name as PartiesMap
 } from '../partiesMap/partiesMap';
 import {
-    name as PartyAdd
-} from '../partyAdd/partyAdd';
+    name as PartyAddButton
+} from '../partyAddButton/partyAddButton';
 import {
     name as PartyRemove
 } from '../partyRemove/partyRemove';
@@ -33,13 +35,16 @@ import {
     name as PartyRsvpsList
 } from '../partyRsvpsList/partyRsvpsList';
 
+import MDIIconsProvider from '../../services/mdiIcons/mdiIcons';
 
 /**
  *  PartiesList Component
  */
 class PartiesList {
-    constructor($scope, $reactive) {
+    constructor($scope, $reactive, MDIIcons) {
         'ngInject';
+
+        this.MDIIcons = MDIIcons;
 
         $reactive(this).attach($scope);
 
@@ -76,6 +81,11 @@ class PartiesList {
         });
     }
 
+    getIcon(name){
+        if(name)
+          return this.MDIIcons.getUnicode(name);
+    }
+
     isOwner(party) {
       return this.isLoggedIn && party.owner === this.currentUserId;
     }
@@ -98,19 +108,19 @@ export default angular.module(name, [
         utilsPagination,
         PartiesSort,
         PartiesMap,
-        PartyAdd,
+        PartyAddButton,
         PartyRemove,
         PartyCreator,
         PartyRsvp,
         PartyRsvpsList
     ]).component(name, {
-        template,
+        template: partiesListTemplate,
         controllerAs: name,
         controller: PartiesList
     })
     .config(config);
 
-function config($stateProvider) {
+function config($stateProvider, paginationTemplateProvider) {
     'ngInject';
 
     $stateProvider
@@ -118,4 +128,6 @@ function config($stateProvider) {
             url: '/parties',
             template: '<parties-list></parties-list>'
         });
+
+    paginationTemplateProvider.setString(pageButtonTemplate);
 }
