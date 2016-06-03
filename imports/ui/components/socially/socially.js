@@ -1,5 +1,8 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import ngAnimate from 'angular-animate';
+import ngAria from 'angular-aria';
+import ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 
 import template from './socially.html';
@@ -12,6 +15,9 @@ import {
 import {
     name as Navigation
 } from '../navigation/navigation';
+import {
+    name as Auth
+} from '../auth/auth';
 
 class Socially {}
 
@@ -20,10 +26,14 @@ const name = 'socially';
 // Create a module
 export default angular.module(name, [
         angularMeteor,
+        ngAnimate,
+        ngAria,
+        ngMaterial,
         uiRouter,
         PartiesList,
         PartyDetails,
         Navigation,
+        Auth,
         'accounts.ui'
     ]).component(name, {
         template,
@@ -33,21 +43,49 @@ export default angular.module(name, [
     .config(config)
     .run(run);
 
-function config($locationProvider, $urlRouterProvider) {
+function config($locationProvider, $urlRouterProvider, $mdIconProvider, $mdThemingProvider) {
     'ngInject';
 
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.otherwise('/parties');
+
+    const googleIconPath = '/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/';
+
+    $mdIconProvider
+        .defaultFontSet('mdi')
+        .iconSet('action',
+            googleIconPath + 'svg-sprite-action.svg')
+        .iconSet('communication',
+            googleIconPath + 'svg-sprite-communication.svg')
+        .iconSet('content',
+            googleIconPath + 'svg-sprite-content.svg')
+        .iconSet('toogle',
+            googleIconPath + 'svg-sprite-toggle.svg')
+        .iconSet('navigation',
+            googleIconPath + 'svg-sprite-navigation.svg')
+        .iconSet('image',
+            googleIconPath + 'svg-sprite-image.svg');
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('deep-orange', {
+          'default': '700',
+          'hue-1': '500',
+          'hue-2': '100'
+        })
+        .warnPalette('blue')
+        .accentPalette('red', {
+          'default': 'A200'
+        });
 }
 
-function run($rootScope, $state){
-  'ngInject';
+function run($rootScope, $state) {
+    'ngInject';
 
-  $rootScope.$on('$stateChangeError',
-    (event, toState, toParams, fromState, fromParams, error) => {
-      if(error === 'AUTH_REQUIRED'){
-        $state.go('parties');
-      }
-    });
+    $rootScope.$on('$stateChangeError',
+        (event, toState, toParams, fromState, fromParams, error) => {
+            if (error === 'AUTH_REQUIRED') {
+                $state.go('parties');
+            }
+        });
 }
