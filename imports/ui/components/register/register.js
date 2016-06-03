@@ -8,15 +8,17 @@ import {
 
 import template from './register.html';
 
+import {
+    name as MDIIconFilter
+} from '../../filters/mdiIcon/mdiIconFilter';
+
 import MonitorProvider from '../../services/monitor/monitor';
-import MDIIconsProvider from '../../services/mdiIcons/mdiIcons';
 
 class Register {
-    constructor($scope, $reactive, $state, MDIIcons) {
+    constructor($scope, $reactive, $state) {
         'ngInject';
 
         this.$state = $state;
-        this.MDIIcons = MDIIcons;
 
         $reactive(this).attach($scope);
 
@@ -26,11 +28,6 @@ class Register {
         };
 
         this.error = '';
-    }
-
-    getIcon(name){
-        if(name)
-          return this.MDIIcons.getUnicode(name);
     }
 
     register() {
@@ -75,7 +72,8 @@ const name = 'register';
 // create a module
 export default angular.module(name, [
         angularMeteor,
-        uiRouter
+        uiRouter,
+        MDIIconFilter
     ])
     .component(name, {
         template,
@@ -84,7 +82,6 @@ export default angular.module(name, [
     })
     .config(config)
     .service('Monitor', MonitorProvider)
-    .service('MDIIcons', MDIIconsProvider)
     .run(run);
 
 function config($stateProvider) {

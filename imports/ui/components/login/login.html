@@ -18,11 +18,11 @@
             </div>
             <div layout="row" layout-fill layout-margin layout-padding layout-wrap layout-align="center">
                 <md-button ng-click="login.loginGoogle()" class="md-raised">
-                    <md-icon class="lg-va-wbm" style="color: #DC4A38;">{{login.getIcon('google')}}</md-icon>
+                    <md-icon class="lg-va-wbm" style="color: #DC4A38;">{{ 'google' | mdiIconFilter }}</md-icon>
                     <span>Google</span>
                 </md-button>
                 <md-button class="md-raised" ng-click="login.loginFacebook()">
-                    <md-icon class="lg-va-wbm" style="color: #3F62B4;">{{login.getIcon('facebook-box')}}</md-icon>
+                    <md-icon class="lg-va-wbm" style="color: #3F62B4;">{{ 'facebook-box' | mdiIconFilter }}</md-icon>
                     <span>Facebook</span>
                 </md-button>
             </div>

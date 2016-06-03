@@ -35,16 +35,16 @@ import {
     name as PartyRsvpsList
 } from '../partyRsvpsList/partyRsvpsList';
 
-import MDIIconsProvider from '../../services/mdiIcons/mdiIcons';
+import {
+    name as MDIIconFilter
+} from '../../filters/mdiIcon/mdiIconFilter';
 
 /**
  *  PartiesList Component
  */
 class PartiesList {
-    constructor($scope, $reactive, MDIIcons) {
+    constructor($scope, $reactive) {
         'ngInject';
-
-        this.MDIIcons = MDIIcons;
 
         $reactive(this).attach($scope);
 
@@ -81,11 +81,6 @@ class PartiesList {
         });
     }
 
-    getIcon(name){
-        if(name)
-          return this.MDIIcons.getUnicode(name);
-    }
-
     isOwner(party) {
       return this.isLoggedIn && party.owner === this.currentUserId;
     }
@@ -112,7 +107,8 @@ export default angular.module(name, [
         PartyRemove,
         PartyCreator,
         PartyRsvp,
-        PartyRsvpsList
+        PartyRsvpsList,
+        MDIIconFilter
     ]).component(name, {
         template: partiesListTemplate,
         controllerAs: name,

@@ -8,10 +8,10 @@ import {
 import template from './partyUninvited.html';
 import {
     name as UninvitedFilter
-} from '../../filters/uninvitedFilter';
+} from '../../filters/uninvited/uninvitedFilter';
 import {
     name as DisplayNameFilter
-} from '../../filters/displayNameFilter';
+} from '../../filters/displayName/displayNameFilter';
 
 class PartyUninvited {
     constructor($scope) {

@@ -11,7 +11,7 @@ import {
 import template from './auth.html';
 import {
     name as DisplayNameFilter
-} from '../../filters/displayNameFilter';
+} from '../../filters/displayName/displayNameFilter';
 import {
     name as Login
 } from '../login/login';

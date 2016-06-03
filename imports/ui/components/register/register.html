@@ -41,11 +41,11 @@
 
             <div layout="row" layout-fill layout-margin layout-padding layout-align="center" layout-wrap>
               <md-button ng-click="register.registerGoogle()" class="md-raised">
-                  <md-icon class="lg-va-wbm" style="color: #DC4A38;">{{register.getIcon('google')}}</md-icon>
+                  <md-icon class="lg-va-wbm" style="color: #DC4A38;">{{ 'google' | mdiIconFilter }}</md-icon>
                   <span>Google</span>
               </md-button>
               <md-button ng-click="register.registerFacebook()" class="md-raised">
-                  <md-icon class="lg-va-wbm" style="color: #3F62B4;">{{register.getIcon('facebook-box')}}</md-icon>
+                  <md-icon class="lg-va-wbm" style="color: #3F62B4;">{{ 'facebook-box' | mdiIconFilter }}</md-icon>
                   <span>Facebook</span>
               </md-button>
             </div>

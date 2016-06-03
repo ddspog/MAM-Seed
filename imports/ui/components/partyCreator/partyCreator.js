@@ -8,7 +8,7 @@ import {
 import template from './partyCreator.html';
 import {
     name as DisplayNameFilter
-} from '../../filters/displayNameFilter';
+} from '../../filters/displayName/displayNameFilter';
 
 /**
  * PartyCreator component
