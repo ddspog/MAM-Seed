@@ -1,31 +1,36 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <form>
-                <fieldset class="form-group">
-                    <label>Party Name</label>
-                    <input type="text" ng-model="partyDetails.party.name" ng-disabled="!partyDetails.isLoggedIn" class="form-control">
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Description</label>
-                    <input type="text" ng-model="partyDetails.party.description" ng-disabled="!partyDetails.isLoggedIn" class="form-control">
-                </fieldset>
+<div layout="column" layout-padding>
+    <div class="lg-layer-back-1 plain-background md-accent-bg" md-colors="{background: 'grey-100'}"></div>
+    <div class="lg-layer-center" layout="column" layout-gt-sm="row" layout-padding>
+        <form flex="45" flex-offset="10" layout="column">
+            <div flex="60" layout="row">
+                <div flex="40">
+                    <md-input-container>
+                        <label>Party Name</label>
+                        <input ng-model="partyDetails.party.name" ng-disabled="!partyDetails.isLoggedIn">
+                    </md-input-container>
+                    <div>
+                        <md-checkbox ng-model="partyDetails.party.public" ng-disabled="!partyDetails.isLoggedIn">
+                            Public Party?
+                        </md-checkbox>
+                    </div>
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="partyDetails.party.public" ng-disabled="!partyDetails.isLoggedIn"> Public Party?
-                    </label>
+                    <div>
+                        <md-button ng-click="partyDetails.save()" class="md-primary md-raised">
+                            Save
+                        </md-button>
+                    </div>
                 </div>
-                <button ng-click="partyDetails.save()" type="submit" class="btn btn-primary">Save</button>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <party-map location="partyDetails.party.location"></party-map>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <party-uninvited party="partyDetails.party" ng-show="partyDetails.canInvite()"></party-uninvited>
-        </div>
+                <md-input-container flex="55">
+                    <label>Description</label>
+                    <textarea type="text" md-maxlength="150" rows="4" ng-model="partyDetails.party.description" ng-disabled="!partyDetails.isLoggedIn"></textarea>
+                </md-input-container>
+                <div flex="5"></div>
+            </div>
+
+            <party-uninvited flex="nogrow" party="partyDetails.party" ng-show="partyDetails.canInvite()"></party-uninvited>
+        </form>
+
+        <party-map flex="35" location="partyDetails.party.location"></party-map>
+        <div flex="10"></div>
     </div>
 </div>
