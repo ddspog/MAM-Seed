@@ -1,4 +1,7 @@
-<select ng-model="partiesSort.order" ng-changes="partiesSort.changed()" class="form-control">
-    <option value="1">Ascending</option>
-    <option value="-1">Descending</option>
-</select>
+<md-input-container>
+    <md-select ng-model="partiesSort.order" ng-change="partiesSort.changed()" aria-label="Sort Parties">
+        <md-option ng-repeat="o in partiesSort.orderOptions" value="{{o.value}}">
+            {{ o.text }}
+        </md-option>
+    </md-select>
+</md-input-container>
