@@ -1,0 +1,19 @@
+{
+    "oAuth": {
+        "facebook": {
+            "clientId": "1335282436487162",
+            "loginStyle": "popup",
+            "secret": "431752e897b358142536ec50a6cc8aa4"
+        },
+        "google": {
+            "clientId": "108407672352-p0n1ftu7rsk5gtjgdc2ldunjns0nb91i.apps.googleusercontent.com",
+            "loginStyle": "popup",
+            "secret": "J18ulHJDcxQl5fCPaiEbl2IW"
+        }
+    },
+    "mailUrl": {
+        "email": "festeje.app@gmail.com",
+        "password": "ddsfestejeNOW"
+    }
+
+}
