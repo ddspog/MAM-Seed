@@ -20,6 +20,9 @@ function getContactEmail(user) {
     if (user.services && user.services.facebook && user.services.facebook.email)
         return user.services.facebook.email;
 
+    if (user.services && user.services.google && user.services.google.email)
+        return user.services.facebook.email;
+
     return null;
 }
 
@@ -75,70 +78,70 @@ export function rsvp(partyId, rsvp) {
     }
 
     if (!_.contains(['yes', 'no', 'maybe'], rsvp)) {
-      throw new Meteor.Error(400, 'Invalid RSVP');
+        throw new Meteor.Error(400, 'Invalid RSVP');
     }
 
     const party = Parties.findOne({
-      _id: partyId,
-      $or: [{
-        // is public
-        $and: [{
-          public: true
+        _id: partyId,
+        $or: [{
+            // is public
+            $and: [{
+                public: true
+            }, {
+                public: {
+                    $exists: true
+                }
+            }]
         }, {
-          public: {
-            $exists: true
-          }
-        }]
-      }, {
-        // is owner
-        $and: [{
-          owner: this.userId
+            // is owner
+            $and: [{
+                owner: this.userId
+            }, {
+                owner: {
+                    $exists: true
+                }
+            }]
         }, {
-          owner: {
-            $exists: true
-          }
+            // is invited
+            $and: [{
+                invited: this.userId
+            }, {
+                invited: {
+                    $exists: true
+                }
+            }]
         }]
-      }, {
-        // is invited
-        $and: [{
-          invited: this.userId
-        }, {
-          invited: {
-            $exists: true
-          }
-        }]
-      }]
     });
 
     if (!party) {
-      throw new Meteor.Error(404, 'No such party');
+        throw new Meteor.Error(404, 'No such party');
     }
 
     const hasUserRsvp = _.findWhere(party.rsvps, {
-      user: this.userId
+        user: this.userId
     });
 
     if (!hasUserRsvp) {
-      // add new rsvp entry
-      Parties.update(partyId, {
-        $push: {
-          rsvps: {
-            rsvp,
-            user: this.userId
-          }
-        }
-      });
+        // add new rsvp entry
+        Parties.update(partyId, {
+            $push: {
+                rsvps: {
+                    rsvp,
+                    user: this.userId
+                }
+            }
+        });
     } else {
-      // update rsvp entry
-      const userId = this.userId;
-      Parties.update({
-        _id: partyId,
-        'rsvps.user': userId
-      }, {
-        $set: {
-          'rsvps.$.rsvp': rsvp
-        }
-      });
+        // update rsvp entry
+        const userId = this.userId;
+        Parties.update({
+            _id: partyId,
+            'rsvps.user': userId
+        }, {
+            $set: {
+                'rsvps.$.rsvp': rsvp
+            }
+        });
     }
 }
 
