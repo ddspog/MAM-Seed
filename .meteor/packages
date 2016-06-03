@@ -29,3 +29,9 @@ tmeasday:publish-counts
 check
 email
 less
+planettraining:material-design-icons
+angular:angular-animate
+dapearce:material-icons
+service-configuration
+angular:angular-aria
+angular:angular-material
