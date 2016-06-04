@@ -1,3 +1,4 @@
 import '../imports/startup/fixtures';
-import '../imports/api/parties/index';
-import '../imports/api/users';
+import '../imports/api/index';
+
+console.log("(^-^)/ The server is up and running...");
