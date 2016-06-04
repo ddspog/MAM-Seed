@@ -3,6 +3,8 @@ import angularMeteor from 'angular-meteor';
 import 'angular-simple-logger';
 import 'angular-google-maps';
 
+import { ConfigGoogleMap } from '../../configs/googleMap/googleMapConfig';
+
 import template from './partiesMap.html';
 
 /**
@@ -34,4 +36,5 @@ export default angular.module(name, [
     parties: '='
   },
   controller: PartiesMap
-});
+})
+  .config(ConfigGoogleMap);
