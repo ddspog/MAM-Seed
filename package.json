@@ -2,7 +2,7 @@
   "name": "socially",
   "private": true,
   "scripts": {
-    "start": "meteor --settings private/settings/development.json",
+    "start": "meteor --settings private\\settings\\development.json",
     "test": "meteor test --driver-package sanjo:jasmine"
   },
   "dependencies": {

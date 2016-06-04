@@ -1,4 +1,13 @@
 {
+    "api": {
+        "google": {
+            "browser": {
+                "key": "AIzaSyCDox7QXJY6ksTLXmIxscZZZyJ4A4FfD2U",
+                "v": "3.24",
+                "libraries": "weather,geometry,visualization"
+            }
+        }
+    },
     "oAuth": {
         "facebook": {
             "clientId": "1335282436487162",
@@ -15,5 +24,4 @@
         "email": "festeje.app@gmail.com",
         "password": "ddsfestejeNOW"
     }
-
 }
