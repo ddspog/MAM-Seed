@@ -7,7 +7,7 @@
 
 The following is a set of guidelines for contributing to MAM-Seed
 (meteor-angular-material seed) and its packages, which are hosted in
-the [MAM-Seed](https://github.com/ddspog/socially) on GitHub. These
+the [MAM-Seed](https://github.com/ddspog/MAM-Seed) on GitHub. These
 are just guidelines, not rules, use your best judgment and feel free
 to propose changes to this document in a pull request.
 
@@ -141,10 +141,10 @@ of the rest of team.
 * **Check it carefully.** You might be able to find the cause of the
 problem and fix things yourself. Most importantly, check if you can
 reproduce the problem
-[in the latest version of MAM-Seed](https://github.com/ddspog/socially).
+[in the latest version of MAM-Seed](https://github.com/ddspog/MAM-Seed).
 * **Check the FAQs on the forum** for a list of common questions and
 problems.
-* **Perform a [cursory search](https://github.com/ddspog/socially/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
+* **Perform a [cursory search](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
  to see if the problem has already been reported. If it has, add a
  comment to the existing issue instead of opening a new one.
 
@@ -152,7 +152,7 @@ problems.
 
 Bugs are tracked as
 [GitHub issues](https://guides.github.com/features/issues/). Create an
- issue on [MAM-Seed](https://github.com/ddspog/socially/issues/new) and
+ issue on [MAM-Seed](https://github.com/ddspog/MAM-Seed/issues/new) and
   provide the following information.
 
 Explain the problem and include additional details to help maintainers
@@ -241,7 +241,7 @@ Before creating enhancement suggestions, please check
 * **Check if this enhancement it's already available**. Most importantly,
  check if you can get the desired behavior by changing configuration.
 * **Perform a
-[cursory search](https://github.com/ddspog/socially/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
+[cursory search](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
  to see if the enhancement has already been suggested. If it has, add
  a comment to the existing issue instead of opening a new one.
 
@@ -294,9 +294,9 @@ only to bug reports. But you can adapt to turn into this template.
 
 Unsure where to begin contributing to Atom? You can start by looking through these `beginner` and `help-wanted` issues:
 
-* [Beginner issues](https://github.com/ddspog/socially/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abeginner+label%3Ahelp-wanted+user%3Aatom+sort%3Acomments-desc+) -
+* [Beginner issues](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abeginner+label%3Ahelp-wanted+user%3Aatom+sort%3Acomments-desc+) -
 issues which should only require a few lines of code, and a test or two.
-* [Help wanted issues](https://github.com/ddspog/socially/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted+sort%3Acomments-desc+) -
+* [Help wanted issues](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted+sort%3Acomments-desc+) -
  issues which should be a bit more involved than `beginner` issues.
 
 Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.
