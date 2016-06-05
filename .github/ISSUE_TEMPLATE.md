@@ -32,7 +32,7 @@ is priority or not.
 | Platform Version:      | Website...       |                         |
 | Operating System (OS): | Win10...         | Tested also on a Win8   |
 | Browser used:          | Google Chrome... | Not tested on others    |
-| Socially version:      | vX.X.X           |                         |
+| MEM-Seed version:      | vX.X.X           |                         |
 | Date when tested:      | dd/MM/yyyy       | Testing since then      |
 
 [//]: # ( This section it's optional                                  )
