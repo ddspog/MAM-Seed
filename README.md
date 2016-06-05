@@ -1,4 +1,5 @@
 # MAM-Seed
+**v.0.18.9** ![](https://travis-ci.org/ddspog/MAM-Seed.svg?branch=master)
 
 meteor-angular-material seed for web application and mobile app
 projects.
