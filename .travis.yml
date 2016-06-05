@@ -10,8 +10,9 @@ install:
   - "curl https://install.meteor.com | /bin/sh"
   # Adding meteor to the $PATH
   - "export PATH=$HOME/.meteor:$PATH"
-  # Install the velocity cli tool
-  - "npm install velocity-cli"
+  # Install the velocity + jasmine tool
+  - "meteor add velocity:console-reporter"
+  - "meteor add sanjo:jasmine"
   # Load other packages
   - "meteor npm install --save angular angular-meteor angular-ui-router angular-utils-pagination underscore angular-simple-logger angular-google-maps angular-mocks"
 
