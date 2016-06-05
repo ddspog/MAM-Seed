@@ -1,5 +1,6 @@
 # MAM-Seed
 **v.0.18.9** ![](https://travis-ci.org/ddspog/MAM-Seed.svg?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/964321c7f06c49b6b4d708981a155465)](https://www.codacy.com/app/ddspog/MAM-Seed?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ddspog/MAM-Seed&amp;utm_campaign=Badge_Grade)
 
 meteor-angular-material seed for web application and mobile app
 projects.
