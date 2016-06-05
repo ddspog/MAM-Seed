@@ -3,7 +3,6 @@ language: node_js
 install: curl https://install.meteor.com | /bin/sh
 script:
   - VELOCITY_TEST_PACKAGES=1
-  - meteor test-packages --driver-package velocity:html-reporter --velocity ./
-  - echo "--Starting tests for MEM-Seed--"
+  - meteor test-packages --driver-package=sanjo:jasmine ./
   - VELOCITY_CI=1
-  - meteor --test
+  - meteor test --driver-package sanjo:jasmine
