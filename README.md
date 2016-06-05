@@ -60,6 +60,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 Current version: **v0.18.9**.
 
+### What's Next
+
+Uploading files and Images on App.
+
 ### Authors
 
 * **Dênnis Dantas de Sousa** - *Initial work*
