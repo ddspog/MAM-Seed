@@ -11,15 +11,15 @@ import {
 } from 'meteor/meteor';
 
 if (Meteor.isServer) {
-    describe('Parties / Methods', () => {
-        describe('invite', () => {
+    describe('Parties / Methods', function() {
+        describe('invite', function() {
             function loggedIn(userId = 'userId') {
                 return {
                     userId
                 };
             }
 
-            it('should be called from Method', () => {
+            it('should be called from Method', function() {
                 spyOn(invite, 'apply');
 
                 try {
@@ -29,25 +29,25 @@ if (Meteor.isServer) {
                 expect(invite.apply).toHaveBeenCalled();
             });
 
-            it('should fail on missing partyId', () => {
-                expect(() => {
+            it('should fail on missing partyId', function() {
+                expect(function() {
                     invite.call({});
                 }).toThrowError();
             });
 
-            it('should fail on missing userId', () => {
-                expect(() => {
+            it('should fail on missing userId', function() {
+                expect(function() {
                     invite.call({}, 'partyId');
                 }).toThrowError();
             });
 
-            it('should fail on not logged in', () => {
-                expect(() => {
+            it('should fail on not logged in', function() {
+                expect(function() {
                     invite.call({}, 'partyId', 'userId');
                 }).toThrowError(/logged in/i);
             });
 
-            it('should look for a party', () => {
+            it('should look for a party', function() {
                 const partyId = 'partyId';
                 spyOn(Parties, 'findOne');
 
@@ -58,36 +58,36 @@ if (Meteor.isServer) {
                 expect(Parties.findOne).toHaveBeenCalledWith(partyId);
             });
 
-            it('should fail if party does not exits', () => {
+            it('should fail if party does not exits', function() {
                 spyOn(Parties, 'findOne').and.returnValue(undefined);
 
-                expect(() => {
+                expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
                 }).toThrowError(/404/);
             });
 
-            it('should fail if logged in user is not the owner', () => {
+            it('should fail if logged in user is not the owner', function() {
                 spyOn(Parties, 'findOne').and.returnValue({
                     owner: 'notUserId'
                 });
 
-                expect(() => {
+                expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
                 }).toThrowError(/404/);
             });
 
-            it('should fail on public party', () => {
+            it('should fail on public party', function() {
                 spyOn(Parties, 'findOne').and.returnValue({
                     owner: 'userId',
                     public: true
                 });
 
-                expect(() => {
+                expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
                 }).toThrowError(/400/);
             });
 
-            it('should NOT invite user who is the owner', () => {
+            it('should NOT invite user who is the owner', function() {
                 spyOn(Parties, 'findOne').and.returnValue({
                     owner: 'userId'
                 });
@@ -98,7 +98,7 @@ if (Meteor.isServer) {
                 expect(Parties.update).not.toHaveBeenCalled();
             });
 
-            it('should NOT invite user who has already invited', () => {
+            it('should NOT invite user who has already invited', function() {
                 spyOn(Parties, 'findOne').and.returnValue({
                     owner: 'userId',
                     invited: ['invitedId']
@@ -110,7 +110,7 @@ if (Meteor.isServer) {
                 expect(Parties.update).not.toHaveBeenCalled();
             });
 
-            it('should invite user who has not been invited and is not the owner', () => {
+            it('should invite user who has not been invited and is not the owner', function() {
                 const partyId = 'partyId';
                 const userId = 'userId';
                 spyOn(Parties, 'findOne').and.returnValue({
@@ -130,14 +130,14 @@ if (Meteor.isServer) {
             });
         });
 
-        describe('rsvp', () => {
+        describe('rsvp', function() {
             function loggedIn(userId = 'userId') {
                 return {
                     userId
                 };
             }
 
-            it('should be called from Method', () => {
+            it('should be called from Method', function() {
                 spyOn(rsvp, 'apply');
 
                 try {
@@ -147,33 +147,33 @@ if (Meteor.isServer) {
                 expect(rsvp.apply).toHaveBeenCalled();
             });
 
-            it('should fail on missing partyId', () => {
-                expect(() => {
+            it('should fail on missing partyId', function() {
+                expect(function() {
                     rsvp.call({});
                 }).toThrowError();
             });
 
-            it('should fail on missing rsvp', () => {
-                expect(() => {
+            it('should fail on missing rsvp', function() {
+                expect(function() {
                     rsvp.call({}, 'partyId');
                 }).toThrowError();
             });
 
-            it('should fail if not logged in', () => {
-                expect(() => {
+            it('should fail if not logged in', function() {
+                expect(function() {
                     rsvp.call({}, 'partyId', 'rsvp');
                 }).toThrowError(/403/);
             });
 
-            it('should fail on wrong answer', () => {
-                expect(() => {
+            it('should fail on wrong answer', function() {
+                expect(function() {
                     rsvp.call(loggedIn(), 'partyId', 'wrong');
                 }).toThrowError(/400/);
             });
 
-            ['yes', 'maybe', 'no'].forEach((answer) => {
-                it(`should pass on '${answer}'`, () => {
-                    expect(() => {
+            ['yes', 'maybe', 'no'].forEach(function(answer) {
+                it(`should pass on '${answer}'`, function() {
+                    expect(function() {
                         rsvp.call(loggedIn(), 'partyId', answer);
                     }).not.toThrowError(/400/);
                 });

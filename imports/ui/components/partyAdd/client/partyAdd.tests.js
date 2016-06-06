@@ -9,14 +9,14 @@ import {
 } from '../../../../api/parties';
 import 'angular-mocks';
 
-describe('PartyAdd', () => {
+describe('PartyAdd', function() {
     // Initialize module
-    beforeEach(() => {
+    beforeEach(function() {
         window.module(PartyAdd);
     });
 
     // Test inside controller
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const party = {
             name: 'Foo',
@@ -28,8 +28,8 @@ describe('PartyAdd', () => {
         }
 
         // Initialize controller
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyAdd, {
                     $scope: $rootScope.$new(true)
                 });
@@ -38,8 +38,8 @@ describe('PartyAdd', () => {
             spyOn(Meteor, 'user').and.returnValue(user);
         });
 
-        describe('reset()', () => {
-            it('should clean up party object', () => {
+        describe('reset()', function() {
+            it('should clean up party object', function() {
                 controller.party = party;
                 controller.reset();
 
@@ -47,9 +47,9 @@ describe('PartyAdd', () => {
             });
         });
 
-        describe('submit()', () => {
+        describe('submit()', function() {
             // Monitors insert, reset on submit calls
-            beforeEach(() => {
+            beforeEach(function() {
                 spyOn(Parties, 'insert');
                 spyOn(controller, 'reset').and.callThrough();
 
@@ -58,7 +58,7 @@ describe('PartyAdd', () => {
                 controller.submit();
             });
 
-            it('should insert a new party', () => {
+            it('should insert a new party', function() {
                 expect(Parties.insert).toHaveBeenCalledWith({
                     name: party.name,
                     description: party.description,
@@ -67,7 +67,7 @@ describe('PartyAdd', () => {
                 });
             });
 
-            it('should call reset()', () => {
+            it('should call reset()', function() {
                 expect(controller.reset).toHaveBeenCalled();
             });
         });

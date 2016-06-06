@@ -6,12 +6,12 @@ import {
 } from '../../../../api/parties';
 import 'angular-mocks';
 
-describe('PartyDetails', () => {
-    beforeEach(() => {
+describe('PartyDetails', function() {
+    beforeEach(function() {
         window.module(PartyDetails);
     });
 
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const party = {
             _id: 'partyId',
@@ -20,28 +20,28 @@ describe('PartyDetails', () => {
             public: true
         };
 
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyDetails, {
                     $scope: $rootScope.$new(true)
                 });
             });
         });
 
-        describe('save()', () => {
-            beforeEach(() => {
+        describe('save()', function() {
+            beforeEach(function() {
                 spyOn(Parties, 'update');
                 controller.party = party;
                 controller.save();
             });
 
-            it('should update a proper party', () => {
+            it('should update a proper party', function() {
                 expect(Parties.update.calls.mostRecent().args[0]).toEqual({
                     _id: party._id
                 });
             });
 
-            it('should update with proper modifier', () => {
+            it('should update with proper modifier', function() {
                 expect(Parties.update.calls.mostRecent().args[1]).toEqual({
                     $set: {
                         name: party.name,

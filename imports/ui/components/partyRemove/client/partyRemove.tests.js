@@ -6,22 +6,22 @@ import {
 } from '../../../../api/parties';
 import 'angular-mocks';
 
-describe('PartyRemove', () => {
+describe('PartyRemove', function() {
     // Initialize module
-    beforeEach(() => {
+    beforeEach(function() {
         window.module(PartyRemove);
     });
 
     // Test inside controller
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const party = {
             _id: 'partyId'
         };
 
         // Initialize controller
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyRemove, {
                     $scope: $rootScope.$new(true)
                 }, {
@@ -30,14 +30,14 @@ describe('PartyRemove', () => {
             });
         });
 
-        describe('remove()', () => {
+        describe('remove()', function() {
             // Monitors remove calls
-            beforeEach(() => {
+            beforeEach(function() {
                 spyOn(Parties, 'remove');
                 controller.remove();
             });
 
-            it('should remove a party', () => {
+            it('should remove a party', function() {
                 expect(Parties.remove).toHaveBeenCalledWith(party._id);
             });
         });

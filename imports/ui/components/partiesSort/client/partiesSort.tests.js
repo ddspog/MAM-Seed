@@ -3,19 +3,19 @@ import {
 } from '../partiesSort';
 import 'angular-mocks';
 
-describe('PartiesSort', () => {
-    beforeEach(() => {
+describe('PartiesSort', function() {
+    beforeEach(function() {
         window.module(PartiesSort);
     });
 
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const onChange = function() {};
         const property = 'name';
         const order = -1;
 
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartiesSort, {
                     $scope: $rootScope.$new(true)
                 }, {
@@ -26,20 +26,20 @@ describe('PartiesSort', () => {
             });
         });
 
-        it('should set property', () => {
+        it('should set property', function() {
             expect(controller.property).toEqual(property);
         });
 
-        it('should set an order', () => {
+        it('should set an order', function() {
             expect(controller.order).toEqual(order);
         });
 
-        it('should set onChange', () => {
+        it('should set onChange', function() {
             expect(controller.onChange).toBe(onChange);
         });
 
-        describe('changed()', () => {
-            it('should call onChange expression', () => {
+        describe('changed()', function() {
+            it('should call onChange expression', function() {
                 spyOn(controller, 'onChange');
 
                 controller.changed();
