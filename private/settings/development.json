@@ -10,7 +10,7 @@
     },
     "oAuth": {
         "facebook": {
-            "clientId": "253543055003901",
+            "appId": "253543055003901",
             "loginStyle": "popup",
             "secret": "c504605daa1f559f3e0d7e88f35d202e"
         },
