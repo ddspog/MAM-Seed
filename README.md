@@ -10,7 +10,7 @@ projects.
 1. Fork this project. Or give it a bare clone.
 2. Install [Meteor](https://www.meteor.com/install).
 3. Go to directory of the brand new project.
-4. Run `meteor` on command-line.
+4. Run `npm start` on command-line.
 5. See how great it would be to modify this app.
 6. Modify it.
 7. Use your creativity to make your onw app.
