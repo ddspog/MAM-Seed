@@ -1,7 +1,5 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
-import ngAnimate from 'angular-animate';
-import ngAria from 'angular-aria';
 import ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 
@@ -26,8 +24,6 @@ const name = 'socially';
 // Create a module
 export default angular.module(name, [
         angularMeteor,
-        ngAnimate,
-        ngAria,
         ngMaterial,
         uiRouter,
         PartiesList,
