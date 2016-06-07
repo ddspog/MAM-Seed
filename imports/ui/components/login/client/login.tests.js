@@ -16,7 +16,6 @@ describe('Login', function() {
     beforeEach(function() {
         window.module(Login);
 
-        stubs.restoreAll();
         spies.restoreAll();
     });
 
