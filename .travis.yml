@@ -13,7 +13,7 @@ install:
   # Verify version
   - "meteor --version"
   # Load other packages
-  - "npm install"
+  - "npm install -g spacejam"
 
 # For testing meteor packages, that's all that is needed.
 script:
