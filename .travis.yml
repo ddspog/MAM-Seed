@@ -3,19 +3,18 @@ sudo: required
 language: node_js
 
 # The node.js version to install
-node_js: "4.4.5"
+node_js: "0.10.40"
 
 install:
   # Install meteor
   - "curl https://install.meteor.com | /bin/sh"
   # Adding meteor to the $PATH
   - "export PATH=$HOME/.meteor:$PATH"
-  # Install the velocity + jasmine tool
-  - "meteor add velocity:console-reporter"
-  - "meteor add sanjo:jasmine"
+  # Verify version
+  - "meteor --version"
   # Load other packages
-  - "meteor npm install --save angular angular-meteor angular-ui-router angular-utils-pagination underscore angular-simple-logger angular-google-maps angular-mocks"
+  - "npm install"
 
 # For testing meteor packages, that's all that is needed.
 script:
-  - "VELOCITY_TEST_PACKAGES=1 JASMINE_CLIENT_INTEGRATION=0 meteor test --driver-package sanjo:jasmine --velocity ./"
+  - "spacejam-mocha ./"
