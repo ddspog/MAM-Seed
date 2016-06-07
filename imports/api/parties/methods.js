@@ -26,6 +26,7 @@ function getContactEmail(user) {
     return null;
 }
 
+// Remember this refers to Meteor, eg: this.userId == Meteor.userId()
 export function invite(partyId, userId) {
     check(partyId, String);
     check(userId, String);
@@ -36,7 +37,7 @@ export function invite(partyId, userId) {
 
     const party = Parties.findOne(partyId);
 
-    if (!party) {
+    if (!party || party.owner !== this.userId) {
         throw new Meteor.Error(404, 'No permissions!');
     }
 

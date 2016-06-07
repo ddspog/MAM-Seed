@@ -4,14 +4,26 @@ import {
 import {
     Parties
 } from '../../../../api/parties';
+
 import 'angular-mocks';
 
-describe('PartyDetails', () => {
-    beforeEach(() => {
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
+
+describe('PartyDetails', function() {
+    beforeEach(function() {
         window.module(PartyDetails);
+        spies.restoreAll();
     });
 
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const party = {
             _id: 'partyId',
@@ -20,33 +32,37 @@ describe('PartyDetails', () => {
             public: true
         };
 
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyDetails, {
                     $scope: $rootScope.$new(true)
                 });
             });
         });
 
-        describe('save()', () => {
-            beforeEach(() => {
-                spyOn(Parties, 'update');
+        describe('save()', function() {
+            beforeEach(function() {
+                if (spies.update)
+                    spies.update.restore();
+                spies.create('update', Parties, 'update');
+
                 controller.party = party;
                 controller.save();
             });
 
-            it('should update a proper party', () => {
-                expect(Parties.update.calls.mostRecent().args[0]).toEqual({
+            it('should update a proper party', function() {
+                expect(spies.update.lastCall.args[0]).to.be.deep.equal({
                     _id: party._id
                 });
             });
 
-            it('should update with proper modifier', () => {
-                expect(Parties.update.calls.mostRecent().args[1]).toEqual({
+            it('should update with proper modifier', function() {
+                expect(spies.update.lastCall.args[1]).to.be.deep.equal({
                     $set: {
                         name: party.name,
                         description: party.description,
-                        public: party.public
+                        public: party.public,
+                        location: party.location
                     }
                 });
             });

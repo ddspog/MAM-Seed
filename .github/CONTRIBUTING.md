@@ -1,13 +1,13 @@
 [//]: # ( QUICK NOTE: 72 characters on each line, is love s2.         )
 
-# Contributing to MAM-Seed
+# Contributing to mam-seed
 
 :+1::tada: First off, thanks for taking the time to contribute!
 :tada::+1:
 
-The following is a set of guidelines for contributing to MAM-Seed
+The following is a set of guidelines for contributing to mam-seed
 (meteor-angular-material seed) and its packages, which are hosted in
-the [MAM-Seed](https://github.com/ddspog/MAM-Seed) on GitHub. These
+the [mam-seed](https://github.com/ddspog/mam-seed) on GitHub. These
 are just guidelines, not rules, use your best judgment and feel free
 to propose changes to this document in a pull request.
 
@@ -15,7 +15,7 @@ to propose changes to this document in a pull request.
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
   * [Code of Conduct](#code-of-conduct)
-  * [MAM-Seed](#mam-seed)
+  * [mam-seed](#mam-seed)
 
 [How Can I Contribute?](#how-can-i-contribute)
   * [Reporting Bugs](#reporting-bugs)
@@ -38,9 +38,9 @@ This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDU
 By participating, you are expected to uphold this code.
 Please report unacceptable behavior to [ddspog@gmail.com](mailto:ddspog@gmail.com).
 
-### MAM-Seed
+### mam-seed
 
-MAM-Seed it's a open source seed, made to develop web and mobile
+mam-seed it's a open source seed, made to develop web and mobile
 projects. These projects will be made with the Framework
 [Angular-Meteor](http://www.angular-meteor.com/) and the UI package
 [Angular-Material](https://material.angularjs.org/latest/). It also
@@ -126,7 +126,7 @@ Further details on how to use this seed are available on the
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for MAM-Seed.
+This section guides you through submitting a bug report for mam-seed.
 Following these guidelines helps maintainers and the community
 understand your report :pencil:, reproduce the behavior :computer:
 :computer:, and find related reports :mag_right:.
@@ -141,10 +141,10 @@ of the rest of team.
 * **Check it carefully.** You might be able to find the cause of the
 problem and fix things yourself. Most importantly, check if you can
 reproduce the problem
-[in the latest version of MAM-Seed](https://github.com/ddspog/MAM-Seed).
+[in the latest version of mam-seed](https://github.com/ddspog/mam-seed).
 * **Check the FAQs on the forum** for a list of common questions and
 problems.
-* **Perform a [cursory search](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
+* **Perform a [cursory search](https://github.com/ddspog/mam-seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
  to see if the problem has already been reported. If it has, add a
  comment to the existing issue instead of opening a new one.
 
@@ -152,7 +152,7 @@ problems.
 
 Bugs are tracked as
 [GitHub issues](https://guides.github.com/features/issues/). Create an
- issue on [MAM-Seed](https://github.com/ddspog/MAM-Seed/issues/new) and
+ issue on [mam-seed](https://github.com/ddspog/mam-seed/issues/new) and
   provide the following information.
 
 Explain the problem and include additional details to help maintainers
@@ -196,9 +196,9 @@ information using the guidelines below.
 Provide more context by answering these questions:
 
 * **Did the problem start happening recently** (e.g. after updating
-  to a new version of MAM-Seed) or was this always a problem?
+  to a new version of mam-seed) or was this always a problem?
 * If the problem started happening recently, **can you reproduce the
-problem in an older version of MAM-Seed?** What's the most recent
+problem in an older version of mam-seed?** What's the most recent
 version in which the problem doesn't happen?
 * **Can you reliably reproduce the issue?** If not, provide details
 about how often the problem happens and under which conditions it
@@ -206,9 +206,9 @@ normally happens.
 
 Include details about your configuration and environment:
 
-* **Which version of MAM-Seed are you using**?
+* **Which version of mam-seed are you using**?
 * **What's the name and version of the OS you're using**?
-* **Are you running MAM-Seed in a virtual machine?** If so, which VM
+* **Are you running mam-seed in a virtual machine?** If so, which VM
 software are you using and which operating systems and versions are
 used for the host and the guest?
 * **Which keyboard layout are you using?** Are you using a US layout
@@ -222,7 +222,7 @@ be loaded on any new issue you open.
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion
-for MAM-Seed, including completely new features and minor improvements
+for mam-seed, including completely new features and minor improvements
  to existing functionality. Following these guidelines helps
  maintainers and the community understand your suggestion :pencil: and
  find related suggestions :mag_right:.
@@ -241,7 +241,7 @@ Before creating enhancement suggestions, please check
 * **Check if this enhancement it's already available**. Most importantly,
  check if you can get the desired behavior by changing configuration.
 * **Perform a
-[cursory search](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
+[cursory search](https://github.com/ddspog/mam-seed/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Addspog+)**
  to see if the enhancement has already been suggested. If it has, add
  a comment to the existing issue instead of opening a new one.
 
@@ -287,16 +287,16 @@ only to bug reports. But you can adapt to turn into this template.
 
     ![Screenshots and GIFs which demonstrate the steps or part of Atom the enhancement suggestion is related to](url)
 
-    **MAM-Seed Version:** [Enter Atom version here]
+    **mam-seed Version:** [Enter Atom version here]
     **OS and Version:** [Enter OS name and version here]
 
 ### Your First Code Contribution
 
 Unsure where to begin contributing to Atom? You can start by looking through these `beginner` and `help-wanted` issues:
 
-* [Beginner issues](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abeginner+label%3Ahelp-wanted+user%3Aatom+sort%3Acomments-desc+) -
+* [Beginner issues](https://github.com/ddspog/mam-seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Abeginner+label%3Ahelp-wanted+user%3Aatom+sort%3Acomments-desc+) -
 issues which should only require a few lines of code, and a test or two.
-* [Help wanted issues](https://github.com/ddspog/MAM-Seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted+sort%3Acomments-desc+) -
+* [Help wanted issues](https://github.com/ddspog/mam-seed/issues?utf8=%E2%9C%93&q=is%3Aopen+is%3Aissue+label%3Ahelp-wanted+sort%3Acomments-desc+) -
  issues which should be a bit more involved than `beginner` issues.
 
 Both issue lists are sorted by total number of comments. While not perfect, number of comments is a reasonable proxy for impact a given change will have.

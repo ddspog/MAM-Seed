@@ -17,9 +17,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 
 pbastowski:angular-babel
 urigo:static-templates
-sanjo:jasmine
-velocity:html-reporter
-velocity:console-reporter
 accounts-password
 dotansimha:accounts-ui-angular
 accounts-facebook
@@ -30,8 +27,10 @@ check
 email
 less
 planettraining:material-design-icons
-angular:angular-animate
 dapearce:material-icons
 service-configuration
-angular:angular-aria
 angular:angular-material
+practicalmeteor:sinon
+practicalmeteor:chai
+practicalmeteor:mocha
+practicalmeteor:mocha-console-runner

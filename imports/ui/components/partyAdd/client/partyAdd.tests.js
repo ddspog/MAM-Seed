@@ -7,16 +7,29 @@ import {
 import {
     Parties
 } from '../../../../api/parties';
+
 import 'angular-mocks';
 
-describe('PartyAdd', () => {
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
+
+describe('PartyAdd', function() {
     // Initialize module
-    beforeEach(() => {
+    beforeEach(function() {
         window.module(PartyAdd);
+        spies.restoreAll();
+        stubs.restoreAll();
     });
 
     // Test inside controller
-    describe('controller', () => {
+    describe('controller', function() {
         let controller;
         const party = {
             name: 'Foo',
@@ -28,38 +41,46 @@ describe('PartyAdd', () => {
         }
 
         // Initialize controller
-        beforeEach(() => {
-            inject(($rootScope, $componentController) => {
+        beforeEach(function() {
+            inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyAdd, {
                     $scope: $rootScope.$new(true)
                 });
             });
 
-            spyOn(Meteor, 'user').and.returnValue(user);
+            if (stubs.user)
+                stubs.user.restore();
+
+            stubs.create('user', Meteor, 'user').returns(user);
         });
 
-        describe('reset()', () => {
-            it('should clean up party object', () => {
+        describe('reset()', function() {
+            it('should clean up party object', function() {
                 controller.party = party;
                 controller.reset();
 
-                expect(controller.party).toEqual({});
+                expect(controller.party).to.be.deep.equal({});
             });
         });
 
-        describe('submit()', () => {
+        describe('submit()', function() {
             // Monitors insert, reset on submit calls
-            beforeEach(() => {
-                spyOn(Parties, 'insert');
-                spyOn(controller, 'reset').and.callThrough();
+            beforeEach(function() {
+                if (spies.insert)
+                    spies.insert.restore();
+                if (spies.reset)
+                    spies.reset.restore();
+
+                spies.create('insert', Parties, 'insert');
+                spies.create('reset', controller, 'reset');
 
                 controller.party = party;
 
                 controller.submit();
             });
 
-            it('should insert a new party', () => {
-                expect(Parties.insert).toHaveBeenCalledWith({
+            it('should insert a new party', function() {
+                expect(spies.insert).to.have.been.calledWith({
                     name: party.name,
                     description: party.description,
                     public: party.public,
@@ -67,8 +88,8 @@ describe('PartyAdd', () => {
                 });
             });
 
-            it('should call reset()', () => {
-                expect(controller.reset).toHaveBeenCalled();
+            it('should call reset()', function() {
+                expect(spies.reset).to.have.been.called;
             });
         });
     });

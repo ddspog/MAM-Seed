@@ -1,6 +1,6 @@
-# MAM-Seed
-**v.0.18.9** ![](https://travis-ci.org/ddspog/MAM-Seed.svg?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/964321c7f06c49b6b4d708981a155465)](https://www.codacy.com/app/ddspog/MAM-Seed?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ddspog/MAM-Seed&amp;utm_campaign=Badge_Grade) [![ReviewNinja](https://app.review.ninja/59931460/badge)](https://app.review.ninja/ddspog/MAM-Seed)
+# mam-seed
+**v.0.18.9** ![](https://travis-ci.org/ddspog/mam-seed.svg?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/964321c7f06c49b6b4d708981a155465)](https://www.codacy.com/app/ddspog/mam-seed?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ddspog/mam-seed&amp;utm_campaign=Badge_Grade) [![ReviewNinja](https://app.review.ninja/59931460/badge)](https://app.review.ninja/ddspog/mam-seed)
 
 meteor-angular-material seed for web application and mobile app
 projects.
@@ -10,7 +10,7 @@ projects.
 1. Fork this project. Or give it a bare clone.
 2. Install [Meteor](https://www.meteor.com/install).
 3. Go to directory of the brand new project.
-4. Run `meteor` on command-line.
+4. Run `npm start` on command-line.
 5. See how great it would be to modify this app.
 6. Modify it.
 7. Use your creativity to make your onw app.
@@ -19,12 +19,12 @@ projects.
 
 You may experience some problems, after installing Meteor. If some of
 the code don't work right after downloading, report an
- [issue](https://github.com/ddspog/MAM-Seed/issues/new).
+ [issue](https://github.com/ddspog/mam-seed/issues/new).
 
  If you have problems understanding the code, you can follow how this
  seed was made on this
   [tutorial](http://www.angular-meteor.com/tutorials/socially/angular1/bootstrapping).
- Further changes, not displayed there, you can see on [**Wiki**](https://github.com/ddspog/MAM-Seed/wiki)
+ Further changes, not displayed there, you can see on [**Wiki**](https://github.com/ddspog/mam-seed/wiki)
  what were made different from the tutorial.
 
 ### Tests
@@ -54,11 +54,11 @@ Using an easy-to-do
 
 ### Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/ddspog/MAM-Seed/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/ddspog/mam-seed/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ### Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [Milestones](https://github.com/ddspog/MAM-Seed/milestones).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [Milestones](https://github.com/ddspog/mam-seed/milestones).
 
 Current version: **v0.18.9**.
 
@@ -70,8 +70,8 @@ Uploading files and Images on App.
 
 * **Dênnis Dantas de Sousa** - *Initial work*
 
-See also the list of [contributors](https://github.com/ddspog/MAM-Seed/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ddspog/mam-seed/graphs/contributors) who participated in this project.
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ddspog/MAM-Seed/blob/master/.github/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ddspog/mam-seed/blob/master/.github/LICENSE.md) file for details

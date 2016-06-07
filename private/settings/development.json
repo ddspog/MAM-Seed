@@ -10,9 +10,9 @@
     },
     "oAuth": {
         "facebook": {
-            "clientId": "1335282436487162",
+            "appId": "253543055003901",
             "loginStyle": "popup",
-            "secret": "431752e897b358142536ec50a6cc8aa4"
+            "secret": "c504605daa1f559f3e0d7e88f35d202e"
         },
         "google": {
             "clientId": "108407672352-p0n1ftu7rsk5gtjgdc2ldunjns0nb91i.apps.googleusercontent.com",
