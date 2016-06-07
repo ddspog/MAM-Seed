@@ -49,19 +49,7 @@ function config($locationProvider, $urlRouterProvider, $mdIconProvider, $mdThemi
     const googleIconPath = '/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/';
 
     $mdIconProvider
-        .defaultFontSet('mdi')
-        .iconSet('action',
-            googleIconPath + 'svg-sprite-action.svg')
-        .iconSet('communication',
-            googleIconPath + 'svg-sprite-communication.svg')
-        .iconSet('content',
-            googleIconPath + 'svg-sprite-content.svg')
-        .iconSet('toogle',
-            googleIconPath + 'svg-sprite-toggle.svg')
-        .iconSet('navigation',
-            googleIconPath + 'svg-sprite-navigation.svg')
-        .iconSet('image',
-            googleIconPath + 'svg-sprite-image.svg');
+        .defaultFontSet('mdi');
 
     $mdThemingProvider.theme('default')
         .primaryPalette('deep-orange', {
