@@ -1,7 +1,18 @@
 import {
     name as PartiesSort
 } from '../partiesSort';
+
 import 'angular-mocks';
+
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
 
 describe('PartiesSort', function() {
     beforeEach(function() {
@@ -27,24 +38,28 @@ describe('PartiesSort', function() {
         });
 
         it('should set property', function() {
-            expect(controller.property).toEqual(property);
+            expect(controller.property).to.be.equal(property);
         });
 
         it('should set an order', function() {
-            expect(controller.order).toEqual(order);
+            expect(controller.order).to.be.equal(order);
         });
 
         it('should set onChange', function() {
-            expect(controller.onChange).toBe(onChange);
+            expect(controller.onChange).to.be.an(typeof onChange);
         });
 
         describe('changed()', function() {
+            beforeEach(function() {
+              spies.restoreAll();
+            });
+
             it('should call onChange expression', function() {
-                spyOn(controller, 'onChange');
+                spies.create('onChange', controller, 'onChange');
 
                 controller.changed();
 
-                expect(controller.onChange).toHaveBeenCalledWith({
+                expect(spies.onChange).to.have.been.calledWith({
                     sort: {
                         [property]: order
                     }

@@ -4,12 +4,18 @@ import {
 import {
     Parties
 } from '../../../../api/parties';
+
 import 'angular-mocks';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
 
 describe('PartyRemove', function() {
     // Initialize module
     beforeEach(function() {
         window.module(PartyRemove);
+        spies.restoreAll();
     });
 
     // Test inside controller
@@ -33,12 +39,15 @@ describe('PartyRemove', function() {
         describe('remove()', function() {
             // Monitors remove calls
             beforeEach(function() {
-                spyOn(Parties, 'remove');
+                if (spies.remove)
+                    spies.remove.restore();
+
+                spies.create('remove', Parties, 'remove');
                 controller.remove();
             });
 
             it('should remove a party', function() {
-                expect(Parties.remove).toHaveBeenCalledWith(party._id);
+                expect(spies.remove).to.have.been.calledWith(party._id);
             });
         });
     });

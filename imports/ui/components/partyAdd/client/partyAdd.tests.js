@@ -7,12 +7,25 @@ import {
 import {
     Parties
 } from '../../../../api/parties';
+
 import 'angular-mocks';
+
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
 
 describe('PartyAdd', function() {
     // Initialize module
     beforeEach(function() {
         window.module(PartyAdd);
+        spies.restoreAll();
+        stubs.restoreAll();
     });
 
     // Test inside controller
@@ -35,7 +48,10 @@ describe('PartyAdd', function() {
                 });
             });
 
-            spyOn(Meteor, 'user').and.returnValue(user);
+            if (stubs.user)
+                stubs.user.restore();
+
+            stubs.create('user', Meteor, 'user').returns(user);
         });
 
         describe('reset()', function() {
@@ -43,15 +59,20 @@ describe('PartyAdd', function() {
                 controller.party = party;
                 controller.reset();
 
-                expect(controller.party).toEqual({});
+                expect(controller.party).to.be.deep.equal({});
             });
         });
 
         describe('submit()', function() {
             // Monitors insert, reset on submit calls
             beforeEach(function() {
-                spyOn(Parties, 'insert');
-                spyOn(controller, 'reset').and.callThrough();
+                if (spies.insert)
+                    spies.insert.restore();
+                if (spies.reset)
+                    spies.reset.restore();
+
+                spies.create('insert', Parties, 'insert');
+                spies.create('reset', controller, 'reset');
 
                 controller.party = party;
 
@@ -59,7 +80,7 @@ describe('PartyAdd', function() {
             });
 
             it('should insert a new party', function() {
-                expect(Parties.insert).toHaveBeenCalledWith({
+                expect(spies.insert).to.have.been.calledWith({
                     name: party.name,
                     description: party.description,
                     public: party.public,
@@ -68,7 +89,7 @@ describe('PartyAdd', function() {
             });
 
             it('should call reset()', function() {
-                expect(controller.reset).toHaveBeenCalled();
+                expect(spies.reset).to.have.been.called;
             });
         });
     });

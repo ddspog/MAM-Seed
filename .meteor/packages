@@ -31,3 +31,5 @@ dapearce:material-icons
 service-configuration
 angular:angular-material
 practicalmeteor:mocha
+practicalmeteor:sinon
+practicalmeteor:chai

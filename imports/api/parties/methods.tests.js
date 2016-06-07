@@ -10,9 +10,19 @@ import {
     Meteor
 } from 'meteor/meteor';
 
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
 if (Meteor.isServer) {
     describe('Parties / Methods', function() {
+        beforeEach(function() {
+            spies.restoreAll();
+            stubs.restoreAll();
+        });
+
         describe('invite', function() {
+            // Initialize scope loggin userId.
             function loggedIn(userId = 'userId') {
                 return {
                     userId
@@ -20,117 +30,137 @@ if (Meteor.isServer) {
             }
 
             it('should be called from Method', function() {
-                spyOn(invite, 'apply');
+                spies.create('invite', invite, 'apply');
 
                 try {
                     Meteor.call('invite');
                 } catch (e) {}
 
-                expect(invite.apply).toHaveBeenCalled();
+                expect(spies.invite).to.have.been.called;
+
+                spies.invite.restore();
             });
 
             it('should fail on missing partyId', function() {
                 expect(function() {
                     invite.call({});
-                }).toThrowError();
+                }).to.throw(Error);
             });
 
             it('should fail on missing userId', function() {
                 expect(function() {
                     invite.call({}, 'partyId');
-                }).toThrowError();
+                }).to.throw(Error);
             });
 
             it('should fail on not logged in', function() {
                 expect(function() {
                     invite.call({}, 'partyId', 'userId');
-                }).toThrowError(/logged in/i);
+                }).to.throw(/logged in/i);
             });
 
             it('should look for a party', function() {
                 const partyId = 'partyId';
-                spyOn(Parties, 'findOne');
+                spies.create('findOne', Parties, 'findOne');
 
                 try {
                     invite.call(loggedIn(), partyId, 'userId');
                 } catch (e) {}
 
-                expect(Parties.findOne).toHaveBeenCalledWith(partyId);
+                expect(spies.findOne).to.have.been.calledWith(partyId);
+
+                spies.findOne.restore();
             });
 
             it('should fail if party does not exits', function() {
-                spyOn(Parties, 'findOne').and.returnValue(undefined);
+                stubs.create('findOne', Parties, 'findOne').returns(undefined);
 
                 expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
-                }).toThrowError(/404/);
+                }).to.throw(/404/);
+
+                stubs.findOne.restore();
             });
 
             it('should fail if logged in user is not the owner', function() {
-                spyOn(Parties, 'findOne').and.returnValue({
+                stubs.create('findOne', Parties, 'findOne').returns({
                     owner: 'notUserId'
                 });
 
                 expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
-                }).toThrowError(/404/);
+                }).to.throw(/404/);
+
+                stubs.findOne.restore();
             });
 
             it('should fail on public party', function() {
-                spyOn(Parties, 'findOne').and.returnValue({
+                stubs.create('findOne', Parties, 'findOne').returns({
                     owner: 'userId',
                     public: true
                 });
 
                 expect(function() {
                     invite.call(loggedIn(), 'partyId', 'userId');
-                }).toThrowError(/400/);
+                }).to.throw(/400/);
+
+                stubs.findOne.restore();
             });
 
             it('should NOT invite user who is the owner', function() {
-                spyOn(Parties, 'findOne').and.returnValue({
+                stubs.create('findOne', Parties, 'findOne').returns({
                     owner: 'userId'
                 });
-                spyOn(Parties, 'update');
+                spies.create('update', Parties, 'update');
 
                 invite.call(loggedIn(), 'partyId', 'userId');
 
-                expect(Parties.update).not.toHaveBeenCalled();
+                expect(spies.update).to.not.have.been.called;
+
+                stubs.findOne.restore();
+                spies.update.restore();
             });
 
             it('should NOT invite user who has already invited', function() {
-                spyOn(Parties, 'findOne').and.returnValue({
+                stubs.create('findOne', Parties, 'findOne').returns({
                     owner: 'userId',
                     invited: ['invitedId']
                 });
-                spyOn(Parties, 'update');
+                spies.create('update', Parties, 'update');
 
                 invite.call(loggedIn(), 'partyId', 'invitedId');
 
-                expect(Parties.update).not.toHaveBeenCalled();
+                expect(spies.update).to.not.have.been.called;
+
+                stubs.findOne.restore();
+                spies.update.restore();
             });
 
             it('should invite user who has not been invited and is not the owner', function() {
                 const partyId = 'partyId';
-                const userId = 'userId';
-                spyOn(Parties, 'findOne').and.returnValue({
+                const userId = 'notInvitedId';
+                stubs.create('findOne', Parties, 'findOne').returns({
                     owner: 'userId',
                     invited: ['invitedId']
                 });
-                spyOn(Parties, 'update');
-                spyOn(Meteor.users, 'findOne').and.returnValue({});
+                spies.create('update', Parties, 'update');
+                stubs.create('usersFindOne', Meteor.users, 'findOne').returns({});
 
                 invite.call(loggedIn(), partyId, userId);
 
-                expect(Parties.update).toHaveBeenCalledWith(partyId, {
+                expect(spies.update).to.have.been.calledWith(partyId, {
                     $addToSet: {
                         invited: userId
                     }
                 });
+                stubs.findOne.restore();
+                spies.update.restore();
+                stubs.usersFindOne.restore();
             });
         });
 
         describe('rsvp', function() {
+            // Initialize scope loggin userId.
             function loggedIn(userId = 'userId') {
                 return {
                     userId
@@ -138,44 +168,46 @@ if (Meteor.isServer) {
             }
 
             it('should be called from Method', function() {
-                spyOn(rsvp, 'apply');
+                spies.create('apply', rsvp, 'apply');
 
                 try {
                     Meteor.call('rsvp');
                 } catch (e) {}
 
-                expect(rsvp.apply).toHaveBeenCalled();
+                expect(spies.apply).to.have.been.called;
+
+                spies.apply.restore();
             });
 
             it('should fail on missing partyId', function() {
                 expect(function() {
                     rsvp.call({});
-                }).toThrowError();
+                }).to.throw(Error);
             });
 
             it('should fail on missing rsvp', function() {
                 expect(function() {
                     rsvp.call({}, 'partyId');
-                }).toThrowError();
+                }).to.throw(Error);
             });
 
             it('should fail if not logged in', function() {
                 expect(function() {
                     rsvp.call({}, 'partyId', 'rsvp');
-                }).toThrowError(/403/);
+                }).to.throw(/403/);
             });
 
             it('should fail on wrong answer', function() {
                 expect(function() {
                     rsvp.call(loggedIn(), 'partyId', 'wrong');
-                }).toThrowError(/400/);
+                }).to.throw(/400/);
             });
 
             ['yes', 'maybe', 'no'].forEach(function(answer) {
                 it(`should pass on '${answer}'`, function() {
                     expect(function() {
                         rsvp.call(loggedIn(), 'partyId', answer);
-                    }).not.toThrowError(/400/);
+                    }).not.to.throw(/400/);
                 });
             });
 

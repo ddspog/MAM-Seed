@@ -1,7 +1,14 @@
 import {
     name as PartiesList
 } from '../partiesList';
+
 import 'angular-mocks';
+
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+should();
 
 describe('PartiesList', function() {
     beforeEach(function() {
@@ -20,15 +27,15 @@ describe('PartiesList', function() {
         });
 
         it('should have perPage that equals 3 by default', function() {
-            expect(controller.perPage).toEqual(3);
+            expect(controller.perPage).to.be.equal(3);
         });
 
         it('should have page that equals 1 by default', function() {
-            expect(controller.page).toEqual(1);
+            expect(controller.page).to.be.equal(1);
         });
 
         it('should sort by name - ASC', function() {
-            expect(controller.sort).toEqual({
+            expect(controller.sort).to.be.deep.equal({
                 name: 1
             });
         });
@@ -38,7 +45,7 @@ describe('PartiesList', function() {
                 name: -1
             });
 
-            expect(controller.sort).toEqual({
+            expect(controller.sort).to.be.deep.equal({
                 name: -1
             });
         });
@@ -46,7 +53,7 @@ describe('PartiesList', function() {
         it('should be able to change page', function() {
             controller.pageChanged(2);
 
-            expect(controller.page).toEqual(2);
+            expect(controller.page).to.be.equal(2);
         });
     });
 });

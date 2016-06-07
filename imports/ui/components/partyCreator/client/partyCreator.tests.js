@@ -4,11 +4,23 @@ import {
 import {
     Meteor
 } from 'meteor/meteor';
+
 import 'angular-mocks';
+
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
 
 describe('PartyCreator', function() {
     beforeEach(function() {
         window.module(PartyCreator);
+        stubs.restoreAll();
     });
 
     describe('controller', function() {
@@ -36,50 +48,61 @@ describe('PartyCreator', function() {
                 party: undefined
             });
 
-            expect(controller.creator).toEqual('');
+            expect(controller.creator).to.be.equal('');
         });
 
         it('should say `me` if logged in is the owner', function() {
             const owner = 'userId';
             // Logged in
-            spyOn(Meteor, 'userId').and.returnValue(owner);
+            stubs.create('userId', Meteor, 'userId').returns(owner);
+
             const controller = component({
                 party: {
                     owner
                 }
             });
 
-            expect(controller.creator).toEqual('me');
+            expect(controller.creator).to.be.equal('me');
+
+            stubs.userId.restore();
         });
 
         it('should say `nobody` if user does not exist', function() {
             const owner = 'userId';
             // not Logged in
-            spyOn(Meteor, 'userId').and.returnValue(null);
+            stubs.create('userId', Meteor, 'userId').returns(null);
             // no user found
-            spyOn(Meteor.users, 'findOne').and.returnValue(undefined);
+            stubs.create('findOne', Meteor.users, 'findOne').returns(undefined);
+
             const controller = component({
                 party: {
                     owner
                 }
             });
 
-            expect(controller.creator).toEqual('nobody');
+            expect(controller.creator).to.be.equal('nobody');
+
+            stubs.userId.restore();
+            stubs.findOne.restore();
         });
 
         it('should return user data if user exists and it is not logged one', function() {
             const owner = 'userId';
             // not Logged in
-            spyOn(Meteor, 'userId').and.returnValue(null);
+            stubs.create('userId', Meteor, 'userId').returns(null);
             // user found
-            spyOn(Meteor.users, 'findOne').and.returnValue('found');
+            stubs.create('findOne', Meteor.users, 'findOne').returns('found');
+
             const controller = component({
                 party: {
                     owner
                 }
             });
 
-            expect(controller.creator).toEqual('found');
+            expect(controller.creator).to.be.equal('found');
+
+            stubs.userId.restore();
+            stubs.findOne.restore();
         });
     });
 });

@@ -4,11 +4,23 @@ import {
 import {
     Parties
 } from '../../../../api/parties';
+
 import 'angular-mocks';
+
+import {
+    chai
+} from 'meteor/practicalmeteor:chai';
+
+import {
+    sinon
+} from 'meteor/practicalmeteor:sinon';
+
+should();
 
 describe('PartyDetails', function() {
     beforeEach(function() {
         window.module(PartyDetails);
+        spies.restoreAll();
     });
 
     describe('controller', function() {
@@ -30,23 +42,27 @@ describe('PartyDetails', function() {
 
         describe('save()', function() {
             beforeEach(function() {
-                spyOn(Parties, 'update');
+                if (spies.update)
+                    spies.update.restore();
+                spies.create('update', Parties, 'update');
+
                 controller.party = party;
                 controller.save();
             });
 
             it('should update a proper party', function() {
-                expect(Parties.update.calls.mostRecent().args[0]).toEqual({
+                expect(spies.update.lastCall.args[0]).to.be.deep.equal({
                     _id: party._id
                 });
             });
 
             it('should update with proper modifier', function() {
-                expect(Parties.update.calls.mostRecent().args[1]).toEqual({
+                expect(spies.update.lastCall.args[1]).to.be.deep.equal({
                     $set: {
                         name: party.name,
                         description: party.description,
-                        public: party.public
+                        public: party.public,
+                        location: party.location
                     }
                 });
             });

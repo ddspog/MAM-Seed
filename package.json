@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor --settings \"private\\settings\\development.json\"",
-    "test": "meteor test --driver-package sanjo:jasmine"
+    "test": "meteor test --driver-package practicalmeteor:mocha"
   },
   "dependencies": {
     "angular": "^1.5.6",
