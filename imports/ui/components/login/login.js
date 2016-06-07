@@ -41,7 +41,7 @@ class Login {
         Meteor.loginWithPassword(this.credentials.email, this.credentials.password,
             this.$bindToContext((err) => {
                 if (err) {
-                    this.error = err;
+                    this.error = err.reason;
                 } else {
                     this.$state.go('parties');
                 }
@@ -54,7 +54,7 @@ class Login {
             requestPermissions: ['profile', 'email']
         }, (err) => {
             if (err) {
-                this.error = err;
+                this.error = err.reason;
             } else {
                 this.$state.go('parties');
             }
@@ -66,19 +66,11 @@ class Login {
             requestPermissions: ['public_profile', 'email']
         }, (err) => {
             if (err) {
-                this.error = err;
+                this.error = err.reason;
             } else {
                 this.$state.go('parties');
             }
         });
-    }
-
-    isLoginServicesReady() {
-        if (Accounts.loginServicesConfigured()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
 
