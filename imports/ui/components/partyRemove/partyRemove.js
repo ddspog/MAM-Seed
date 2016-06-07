@@ -2,6 +2,11 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
 import template from './partyRemove.html';
+
+import {
+    name as MDIIconFilter
+} from '../../filters/mdiIcon/mdiIconFilter';
+
 import {
     Parties
 } from '../../../api/parties/index';

@@ -9,9 +9,14 @@ import {
 } from 'meteor/accounts-base';
 
 import template from './auth.html';
+
 import {
     name as DisplayNameFilter
 } from '../../filters/displayName/displayNameFilter';
+import {
+    name as MDIIconFilter
+} from '../../filters/mdiIcon/mdiIconFilter';
+
 import {
     name as Login
 } from '../login/login';
