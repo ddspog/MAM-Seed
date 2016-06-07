@@ -17,4 +17,4 @@ install:
 
 # For testing meteor packages, that's all that is needed.
 script:
-  - "spacejam-mocha ./"
+  - "spacejam test-packages --driver-package=practicalmeteor:mocha-console-runner ./"
