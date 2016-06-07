@@ -13,8 +13,8 @@ install:
   # Verify version
   - "meteor --version"
   # Load other packages
-  - "npm install -g spacejam"
+  - "npm -g install spacejam@1.6.1"
 
 # For testing meteor packages, that's all that is needed.
 script:
-  - "spacejam test-packages --driver-package=practicalmeteor:mocha-console-runner ./"
+  - "spacejam-mocha ./"
