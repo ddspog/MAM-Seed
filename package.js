@@ -5,5 +5,5 @@ Package.onTest(function (api) {
     'practicalmeteor:sinon'
   ]);
 
-  api.addFiles('import/test.js');
+  api.addFiles('./import/test.js');
 });
