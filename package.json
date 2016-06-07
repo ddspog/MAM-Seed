@@ -1,5 +1,5 @@
 {
-  "name": "socially",
+  "name": "mem-seed",
   "private": true,
   "scripts": {
     "start": "meteor --settings \"private\\settings\\development.json\"",
