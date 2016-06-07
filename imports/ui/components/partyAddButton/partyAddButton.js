@@ -3,6 +3,11 @@ import angularMeteor from 'angular-meteor';
 
 import buttonTemplate from './partyAddButton.html';
 import modalTemplate from './partyAddModal.html';
+
+import {
+    name as MDIIconFilter
+} from '../../filters/mdiIcon/mdiIconFilter';
+
 import {
     name as PartyAdd
 } from '../partyAdd/partyAdd';
