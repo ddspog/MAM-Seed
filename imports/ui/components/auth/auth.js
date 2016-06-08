@@ -43,8 +43,8 @@ class Auth {
         });
     }
 
-    logout() {
-      Accounts.logout();
+    logout(callback) {
+      Accounts.logout(callback);
     }
 }
 
