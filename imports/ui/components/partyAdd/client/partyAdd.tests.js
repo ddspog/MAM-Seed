@@ -2,6 +2,10 @@ import {
     Meteor
 } from 'meteor/meteor';
 import {
+    Accounts
+} from 'meteor/accounts-base';
+
+import {
     name as PartyAdd
 } from '../partyAdd';
 import {
@@ -21,51 +25,69 @@ import {
 should();
 
 describe('PartyAdd', function() {
+    let userCreate = false;
+    let userCreatedId;
+    const userCreatedName = 'userCreatedName';
+    const userCreatedPassword = 'userCreatedPassword';
+
     // Initialize module
-    beforeEach(function() {
+    beforeEach(function(done) {
         window.module(PartyAdd);
+
         spies.restoreAll();
         stubs.restoreAll();
+
+        if (!userCreate) {
+            Accounts.createUser({
+                username: userCreatedName,
+                password: userCreatedPassword
+            });
+            userCreate = true;
+            Meteor.loginWithPassword(userCreatedName, userCreatedPassword, function() {
+                userCreatedId = Meteor.userId();
+                Meteor.logout(done);
+            });
+        } else {
+            done();
+        }
     });
 
     // Test inside controller
     describe('controller', function() {
         let controller;
+
         const party = {
             name: 'Foo',
             description: 'Birthday of Foo',
             public: true
         };
-        const user = {
-            _id: 'userId'
-        }
+        const donePartyAdd = function() {};
 
         // Initialize controller
-        beforeEach(function() {
+        beforeEach(function(done) {
             inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyAdd, {
                     $scope: $rootScope.$new(true)
+                }, {
+                    done: donePartyAdd
                 });
             });
-
-            if (stubs.user)
-                stubs.user.restore();
-
-            stubs.create('user', Meteor, 'user').returns(user);
+            done();
         });
 
         describe('reset()', function() {
-            it('should clean up party object', function() {
+            it('should clean up party object', function(done) {
                 controller.party = party;
                 controller.reset();
 
                 expect(controller.party).to.be.deep.equal({});
+                done();
             });
         });
 
         describe('submit()', function() {
             // Monitors insert, reset on submit calls
-            beforeEach(function() {
+            beforeEach(function(done) {
                 if (spies.insert)
                     spies.insert.restore();
                 if (spies.reset)
@@ -76,20 +98,33 @@ describe('PartyAdd', function() {
 
                 controller.party = party;
 
-                controller.submit();
+                Meteor.loginWithPassword(userCreatedName, userCreatedPassword, function() {
+                    controller.submit();
+                    done();
+                });
             });
 
-            it('should insert a new party', function() {
+            afterEach(function(done) {
+                if (Meteor.userId()) {
+                    Meteor.logout(done);
+                } else {
+                    done();
+                }
+            });
+
+            it('should insert a new party', function(done) {
                 expect(spies.insert).to.have.been.calledWith({
                     name: party.name,
                     description: party.description,
                     public: party.public,
-                    owner: user._id
+                    owner: Meteor.userId()
                 });
+                done();
             });
 
-            it('should call reset()', function() {
+            it('should call reset()', function(done) {
                 expect(spies.reset).to.have.been.called;
+                done();
             });
         });
     });

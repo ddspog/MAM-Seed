@@ -18,9 +18,10 @@ import {
 should();
 
 describe('PartyCreator', function() {
-    beforeEach(function() {
+    beforeEach(function(done) {
         window.module(PartyCreator);
         stubs.restoreAll();
+        done();
     });
 
     describe('controller', function() {
@@ -30,11 +31,12 @@ describe('PartyCreator', function() {
             _id: 'partyId'
         };
 
-        beforeEach(function() {
+        beforeEach(function(done) {
             inject(function(_$rootScope_, _$componentController_) {
                 $rootScope = _$rootScope_;
                 $componentController = _$componentController_;
             });
+            done();
         });
 
         function component(bindings) {
@@ -43,15 +45,16 @@ describe('PartyCreator', function() {
             }, bindings);
         }
 
-        it('should return an empty string if there is no party', function() {
+        it('should return an empty string if there is no party', function(done) {
             const controller = component({
                 party: undefined
             });
 
             expect(controller.creator).to.be.equal('');
+            done();
         });
 
-        it('should say `me` if logged in is the owner', function() {
+        it('should say `me` if logged in is the owner', function(done) {
             const owner = 'userId';
             // Logged in
             stubs.create('userId', Meteor, 'userId').returns(owner);
@@ -65,9 +68,10 @@ describe('PartyCreator', function() {
             expect(controller.creator).to.be.equal('me');
 
             stubs.userId.restore();
+            done();
         });
 
-        it('should say `nobody` if user does not exist', function() {
+        it('should say `nobody` if user does not exist', function(done) {
             const owner = 'userId';
             // not Logged in
             stubs.create('userId', Meteor, 'userId').returns(null);
@@ -84,9 +88,10 @@ describe('PartyCreator', function() {
 
             stubs.userId.restore();
             stubs.findOne.restore();
+            done();
         });
 
-        it('should return user data if user exists and it is not logged one', function() {
+        it('should return user data if user exists and it is not logged one', function(done) {
             const owner = 'userId';
             // not Logged in
             stubs.create('userId', Meteor, 'userId').returns(null);
@@ -103,6 +108,7 @@ describe('PartyCreator', function() {
 
             stubs.userId.restore();
             stubs.findOne.restore();
+            done();
         });
     });
 });
