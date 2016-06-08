@@ -13,10 +13,10 @@ import {
 } from 'meteor/practicalmeteor:sinon';
 
 describe('Login', function() {
+    spies.restoreAll();
+
     beforeEach(function(done) {
         window.module(Login);
-
-        spies.restoreAll();
         done();
     });
 
@@ -49,6 +49,12 @@ describe('Login', function() {
             let validEmail = 'validEmail';
             let validPassword = 'validPassword';
 
+            afterEach(function(done) {
+                if (spies.login)
+                    spies.login.restore();
+                done();
+            });
+
             it('should call Meteor.loginWithPassword', function(done) {
                 spies.create('login', Meteor, 'loginWithPassword');
 
@@ -59,8 +65,6 @@ describe('Login', function() {
                 controller.login();
 
                 expect(spies.login).to.be.calledWith(validEmail, validPassword);
-
-                spies.login.restore();
                 done();
             });
         });
@@ -72,8 +76,6 @@ describe('Login', function() {
                 controller.loginGoogle();
 
                 expect(spies.login).to.be.called;
-
-                spies.login.restore();
                 done();
             });
         });
@@ -85,8 +87,6 @@ describe('Login', function() {
                 controller.loginFacebook();
 
                 expect(spies.login).to.be.called;
-
-                spies.login.restore();
                 done();
             });
         });

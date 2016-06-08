@@ -17,24 +17,31 @@ import {
 
 should();
 
-
 describe('Auth', function() {
-    let userCreate = false;
-    let userCreatedId;
-    const userCreatedName = 'userCreatedName';
-    const userCreatedPassword = 'userCreatedPassword';
+    let user = {
+        username: 'userCreatedName',
+        password: 'userCreatedPassword',
+        create: false,
+        _id: ''
+    }
 
     beforeEach(function(done) {
         window.module(Auth);
-        if (!userCreate) {
+        if (!user.create) {
             Accounts.createUser({
-                username: userCreatedName,
-                password: userCreatedPassword
-            });
-            userCreate = true;
-            Meteor.loginWithPassword(userCreatedName, userCreatedPassword, function() {
-                userCreatedId = Meteor.userId();
-                Meteor.logout(done);
+                username: user.username,
+                password: user.password
+            }, function(error) {
+                user.create = true;
+                if (!Meteor.userId()) {
+                    Meteor.loginWithPassword(user.username, user.password, function() {
+                        user._id = Meteor.userId();
+                        done();
+                    });
+                } else {
+                    user._id = Meteor.userId();
+                    done();
+                }
             });
         } else {
             done();
@@ -58,17 +65,9 @@ describe('Auth', function() {
             }
         });
 
-        afterEach(function(done) {
-            if (Meteor.userId()) {
-                Meteor.logout(done);
-            } else {
-                done();
-            }
-        });
-
         describe('logout()', function() {
             it('should logout when user is logged', function(done) {
-                Meteor.loginWithPassword(userCreatedName, userCreatedPassword, function() {
+                Meteor.loginWithPassword(user.username, user.password, function() {
                     controller.logout(function() {
                         expect(Meteor.userId()).to.be.null;
                         done();

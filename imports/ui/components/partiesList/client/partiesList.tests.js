@@ -19,6 +19,9 @@ import {
 should();
 
 describe('PartiesList', function() {
+    if (!process.env.TESTING)
+        process.env.TESTING = 1;
+
     beforeEach(function(done) {
         if (!stubs.config)
             stubs.create('config', ConfigGoogleMap, 'apply').returns('');

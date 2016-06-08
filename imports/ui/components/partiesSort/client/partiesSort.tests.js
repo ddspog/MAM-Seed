@@ -15,6 +15,8 @@ import {
 should();
 
 describe('PartiesSort', function() {
+    spies.restoreAll();
+
     beforeEach(function(done) {
         window.module(PartiesSort);
         done();
@@ -55,9 +57,10 @@ describe('PartiesSort', function() {
         });
 
         describe('changed()', function() {
-            beforeEach(function(done) {
-              spies.restoreAll();
-              done();
+            afterEach(function(done) {
+                if (spies.onChange)
+                    spies.onChange.restore();
+                done();
             });
 
             it('should call onChange expression', function(done) {
