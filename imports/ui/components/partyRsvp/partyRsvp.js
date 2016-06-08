@@ -13,39 +13,44 @@ class PartyRsvp {
         this.answer('yes');
     }
     isYes() {
-      return this.isAnswer('yes');
+        return this.isAnswer('yes');
     }
 
     maybe() {
         this.answer('maybe');
     }
     isMaybe() {
-      return this.isAnswer('maybe');
+        return this.isAnswer('maybe');
     }
 
     no() {
         this.answer('no');
     }
     isNo() {
-      return this.isAnswer('no');
+        return this.isAnswer('no');
     }
 
     answer(answer) {
         Meteor.call('rsvp', this.party._id, answer, (error) => {
-            if (error) {
-                console.error('Oops, unable to rsvp!');
-            } else {
-                console.log('RSVP done!');
+            if (!process.env.TESTING) {
+                if (error) {
+                    console.error('Oops, unable to rsvp!');
+                } else {
+                    console.log('RSVP done!');
+                }
             }
         });
     }
     isAnswer(answer) {
-      if(this.party) {
-        return !!_.findWhere(this.party.rsvps, {
-          user: Meteor.userId(),
-          rsvp: answer
-        });
-      }
+        if (this.party) {
+            return !!_.findWhere(this.party.rsvps, {
+                user: Meteor.userId(),
+                rsvp: answer
+            });
+        }
+    }
+    isTesting() {
+        return false;
     }
 }
 
