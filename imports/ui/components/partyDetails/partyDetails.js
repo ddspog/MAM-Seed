@@ -62,10 +62,12 @@ class PartyDetails {
                 location: this.party.location
             }
         }, (error) => {
-            if (error) {
-                console.log('Oops, unable to update the party...');
-            } else {
-                console.log('Done!');
+            if (Meteor.isProduction) {
+                if (error) {
+                    console.log('Oops, unable to update the party...');
+                } else {
+                    console.log('Done!');
+                }
             }
         });
     }
