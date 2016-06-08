@@ -49,9 +49,6 @@ class PartyRsvp {
             });
         }
     }
-    isTesting() {
-        return false;
-    }
 }
 
 const name = 'partyRsvp';
