@@ -15,9 +15,14 @@
 [//]: # (   - Search for duplicated suggestions                       )
 
 [//]: # ( Title (Issue and Enhancement):                              )
-[//]: # (   - Create unique title                                     )
+[//]: # (   - Create unique title, be specific.                       )
 [//]: # (   - Use keywords that you would use to search it.           )
 [//]: # (   - Use light description, but to call attention.           )
+
+[//]: # ( Title (Epic):                                               )
+[//]: # (   - Be a little abstract.                                   )
+[//]: # (   - Consider the scope you're working on.                   )
+[//]: # (   - Only main team are allowed to add this.                 )
 
 [//]: # ( Title (User Story):                                         )
 [//]: # (   - "As a <type of User>, I want <a goal> so that <benefit>")
@@ -26,11 +31,14 @@
 [//]: # ( QUICK NOTE: 72 characters on each line, is love s2.         )
 
 [//]: # (#############################################################)
-[//]: # ( Overview (issue/enhancement) or User Story.                 )
+[//]: # ( Overview (issue/enhancement) or User Story, or Goal(Epic).  )
 [//]: # (  - If User Story, use template below.                       )
-[//]: # (  - **For**: <Purpose>                                       )
-[//]: # (  - **What**: <Subjects>                                     )
-[//]: # (  - **To**: <improve>                                        )
+[//]: # (    - **For**: <Purpose>                                     )
+[//]: # (    - **What**: <Subjects>                                   )
+[//]: # (    - **To**: <improve>                                      )
+[//]: # (  - If Goal, use template below.                             )
+[//]: # (    - Describe Goal                                          )
+[//]: # (    - List of objectives                                     )
 # Overview
 
 Describe the issue/enhancement here. Use a TL;DR strategy, to make other
@@ -64,7 +72,7 @@ party algorithms to tell context of the issue.
 
 [//]: # (#############################################################)
 [//]: # ( Description section (Required)                              )
-## What are we facing?
+### What are we facing?
 
 Describe the call to the method that you're think it's related to
 issue. Also detail other configuration, and other classes that may have

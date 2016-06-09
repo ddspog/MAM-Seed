@@ -23,11 +23,11 @@ priority to pull or not.
 
 ### Type of changes
 
- - [ ] Bug Fix (fix to issue)
- - [ ] Feature (new feature)
- - [ ] Breaking Change (it breaks)
- - [ ] Review Docs (better documentation)
- - [ ] Testing (automatic tests)
+ - Bug Fix (fix to issue)
+ - Feature (new feature)
+ - Breaking Change (it breaks)
+ - Review Docs (better documentation)
+ - Testing (automatic tests)
 
 ### Features Working
 [//]: # ( Required if it's a feature or bug fix, or breaking change.  )
