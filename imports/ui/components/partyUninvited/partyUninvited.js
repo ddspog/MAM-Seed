@@ -27,14 +27,16 @@ class PartyUninvited {
     }
 
     invite(user) {
-      Meteor.call('invite', this.party._id, user._id,
-        (error) => {
-          if (error) {
-            console.log('Oops, unable to invite!');
-          } else {
-            console.log('Invited!');
-          }
-        })
+        Meteor.call('invite', this.party._id, user._id,
+            (error) => {
+                if (!process.env.TESTING) {
+                    if (error) {
+                        console.log('Oops, unable to invite!');
+                    } else {
+                        console.log('Invited!');
+                    }
+                }
+            });
     }
 }
 
