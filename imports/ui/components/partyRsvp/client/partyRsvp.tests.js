@@ -87,6 +87,7 @@ describe('PartyRsvp', function() {
 
             ['yes', 'maybe', 'no'].forEach(function(answer) {
                 it(`should call rsvp with '${answer}'`, function(done) {
+                    controller.party.owner = user._id;
                     controller.answer(answer);
 
                     expect(spies.callMethod).to.be.calledWith('rsvp', party._id, answer);
