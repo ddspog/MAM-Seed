@@ -14,15 +14,16 @@ import {
 } from './collection';
 
 function getContactEmail(user) {
-    if (user.emails && user.emails.length)
-        return user.emails[0].address;
+    if (user) {
+        if (user.emails && user.emails.length)
+            return user.emails[0].address;
 
-    if (user.services && user.services.facebook && user.services.facebook.email)
-        return user.services.facebook.email;
+        if (user.services && user.services.facebook && user.services.facebook.email)
+            return user.services.facebook.email;
 
-    if (user.services && user.services.google && user.services.google.email)
-        return user.services.facebook.email;
-
+        if (user.services && user.services.google && user.services.google.email)
+            return user.services.facebook.email;
+    }
     return null;
 }
 
