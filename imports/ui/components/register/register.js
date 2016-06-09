@@ -33,10 +33,12 @@ class Register {
     register() {
         Accounts.createUser(this.credentials,
             this.$bindToContext((err) => {
-                if (err) {
-                    this.error = err;
-                } else {
-                    this.$state.go('parties');
+                if (!process.env.TESTING) {
+                    if (err) {
+                        this.error = err;
+                    } else {
+                        this.$state.go('parties');
+                    }
                 }
             })
         );
