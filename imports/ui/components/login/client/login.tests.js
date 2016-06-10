@@ -50,8 +50,9 @@ describe('Login', function() {
             let validPassword = 'validPassword';
 
             afterEach(function(done) {
-                if (spies.login)
+                if (spies.login) {
                     spies.login.restore();
+                }
                 done();
             });
 

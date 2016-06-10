@@ -18,8 +18,9 @@ import {
 describe('Register', function() {
     spies.restoreAll();
 
-    if (!process.env.TESTING)
+    if (!process.env.TESTING) {
         process.env.TESTING = 1;
+    }
 
     beforeEach(function(done) {
         window.module(Register);
@@ -56,8 +57,9 @@ describe('Register', function() {
             let validPassword = 'validPassword';
 
             afterEach(function(done) {
-                if (spies.register)
+                if (spies.register) {
                     spies.register.restore();
+                }
                 done();
             });
 

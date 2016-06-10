@@ -21,7 +21,7 @@ describe('PartyRsvp', function() {
         password: 'userCreatedPassword',
         create: false,
         _id: ''
-    }
+    };
 
     if (!process.env.TESTING)
         process.env.TESTING = 1;

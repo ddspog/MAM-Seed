@@ -30,7 +30,7 @@ describe('PartyAdd', function() {
         password: 'userCreatedPassword',
         create: false,
         _id: ''
-    }
+    };
 
     spies.restoreAll();
     stubs.restoreAll();
@@ -112,10 +112,12 @@ describe('PartyAdd', function() {
             });
 
             afterEach(function(done) {
-                if (spies.insert)
+                if (spies.insert) {
                     spies.insert.restore();
-                if (spies.reset)
+                }
+                if (spies.reset) {
                     spies.reset.restore();
+                }
                 done();
             });
 

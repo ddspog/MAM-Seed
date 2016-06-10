@@ -51,8 +51,9 @@ describe('Password', function() {
             let validEmail = 'validEmail';
 
             afterEach(function(done) {
-                if (spies.forgot)
+                if (spies.forgot) {
                     spies.forgot.restore();
+                }
                 done();
             });
 
