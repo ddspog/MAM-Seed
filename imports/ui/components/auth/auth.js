@@ -27,24 +27,30 @@ import {
     name as Password
 } from '../password/password';
 
+import {
+    AfterLogInout
+} from '../../callbacks/redirect/redirectCallback';
+
 class Auth {
-    constructor($scope, $reactive) {
+    constructor($scope, $reactive, $state) {
         'ngInject';
+
+        this.$state = $state;
 
         $reactive(this).attach($scope);
 
         this.helpers({
-          isLoggedIn() {
-            return !!Meteor.userId();
-          },
-          currentUser() {
-            return Meteor.user();
-          }
+            isLoggedIn() {
+                return !!Meteor.userId();
+            },
+            currentUser() {
+                return Meteor.user();
+            }
         });
     }
 
-    logout() {
-      Accounts.logout();
+    logout(callback) {
+        Accounts.logout(AfterLogInout(this, 'parties', callback));
     }
 }
 
@@ -52,13 +58,13 @@ const name = 'auth';
 
 // create  a module
 export default angular.module(name, [
-  angularMeteor,
-  DisplayNameFilter,
-  Login,
-  Register,
-  Password
+    angularMeteor,
+    DisplayNameFilter,
+    Login,
+    Register,
+    Password
 ]).component(name, {
-  template,
-  controllerAs: name,
-  controller: Auth
+    template,
+    controllerAs: name,
+    controller: Auth
 });

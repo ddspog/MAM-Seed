@@ -214,11 +214,6 @@ used for the host and the guest?
 * **Which keyboard layout are you using?** Are you using a US layout
 or some other layout?
 
-#### Template For Submitting Bug Reports
-
-You can find the issues templates [here](). But they're already will
-be loaded on any new issue you open.
-
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion
@@ -260,35 +255,11 @@ expected to see instead** and why.
 * **Explain why this enhancement would be useful**.
 * **Specify the name and version of the OS you're using.**
 
-#### Template For Submitting Enhancement Suggestions
+##### Template For Submitting Bug Reports or Enhancements
 
-As you may note, the issue template on creating a new one, refers
-only to bug reports. But you can adapt to turn into this template.
-
-    [Short description of suggestion]
-
-    **Steps which explain the enhancement**
-
-    1. [First Step]
-    2. [Second Step]
-    3. [Other Steps...]
-
-    **Current and suggested behavior**
-
-    [Describe current and suggested behavior here]
-
-    **Why would the enhancement be useful to most users**
-
-    [Explain why the enhancement would be useful to most users]
-
-    [List some other text editors or applications where this enhancement exists]
-
-    **Screenshots and GIFs**
-
-    ![Screenshots and GIFs which demonstrate the steps or part of Atom the enhancement suggestion is related to](url)
-
-    **mam-seed Version:** [Enter Atom version here]
-    **OS and Version:** [Enter OS name and version here]
+You can find the issues templates [here](ISSUE_TEMPLATE.md). But
+they're already will be loaded on any new issue you open. The template
+also has some tips to write the issue as enhancement suggestion.
 
 ### Your First Code Contribution
 
@@ -330,7 +301,8 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 50 characters or less
     * And the rest with 72 characters or less
-* Reference issues and pull requests liberally
+* End all commits summaries Referencing issues or pull requests.
+    * eg: Ref #12
 * Considering starting with abbreviations as:
     * Add: for new functionality
     * Mod: algorithm or location
@@ -341,7 +313,7 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 * Consider starting the commit message with an applicable emoji:
     * :art: `:art:` when improving the format/structure of the code
     * :racehorse: `:racehorse:` when improving performance
-    * :non-potable_water: `:non-potable_water:` when plugging memory leaks
+    * :non-potable_water: `:non-potable_water:` when fixing DB
     * :memo: `:memo:` when writing docs
     * :penguin: `:penguin:` when fixing something on Linux
     * :apple: `:apple:` when fixing something on Mac OS
@@ -349,15 +321,60 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
     * :bug: `:bug:` when fixing a bug
     * :fire: `:fire:` when removing code or files
     * :white_check_mark: `:white_check_mark:` when adding tests
+    * :green_heart: `:green_heart:` when fixing CI
     * :lock: `:lock:` when dealing with security
     * :arrow_up: `:arrow_up:` when upgrading dependencies
     * :arrow_down: `:arrow_down:` when downgrading dependencies
     * :shirt: `:shirt:` when removing warnings
+    * :lipstick: `:lipstick:` when improving UI
+    * :construction: `:construction:` for WIP (work-in-progress)
+    * :speaker: `:speaker:` when adding logging
+    * :mute: `:mute:` when reducing logging
+    * :bulb: `:bulb:` for new idea
+    * :snowflake: `:snowflake:` when changing configuration
+    * :rocket: `:rocket:` deployment related
 
+### Git commit template
+
+Use this wherever you can put commit templates.
+```
+################################################T#####################M
+# Capitalized, short (50 chars or less) summary                       #
+#                                                                     #
+# Details.  Wrap it to about 72 characters or so. Write your commit   #
+# message in the imperative: "Fix bug" and not "Fixed bug"            #
+#                                                                     #
+# Ref #45                  always end with this                       #
+#######################################################################
+Title :construction:
+
+Summary
+
+Ref
+#######################################################################
+# Considering starting with abbreviations as:                         #
+# Add: new functionality   | Mod: algorithm or location               #
+# Ref: new stuff for class | Fix: #42 issue                           #
+# Rem: class deprecated    | Rea: removing comments on local          #
+#######################################################################
+# Consider ending the commit message with an applicable emoji:        #
+# :art: improving code format | :racehorse: improving performance     #
+# :memo: when writing docs    | :non-potable_water: DB related        #
+# :penguin: fixing on Linux   | :apple: fixing on Mac OS              #
+# :checkered_flag: on Windows | :bug: when fixing a bug               #
+# :fire: removing code        | :white_check_mark: when adding tests  #
+# :lock: security             | :arrow_up: upgrading dependencies     #
+# :shirt: removing warnings   | :arrow_down: downgrading dependencies #
+# :green_heart: fixing CI     | :lipstick: improving UI               #
+# :bulb: new idea             | :construction: work in progress       #
+# :mute: reducing logging     | :speaker: adding loggin               #
+# :rocket: deployment related | :snowflake: changing configuration    #
+#######################################################################
+```
 ### Tests Styleguide
 
 - Include thoughtfully-worded, well-structured
-  [Jasmine](http://jasmine.github.io/) tests in the `./client` folder
+  [Mocha](https://mochajs.org/) tests in the `./client` folder
   of each component, or other code.
 - If you're making behavior-tests:
   - treat `describe` as a noun or situation.
@@ -365,16 +382,21 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 - If you're making unit-tests:
   - nest `describe` as classes and methods.
   - treat `it` as a situation when executing method.
+- Include `done` as arg for `it`, `beforeEach` or `afterEach` blocks,
+to makes sure the block run isolated, without any code running aside.
 
 #### Example
 
 ```javascript
-describe('a dog', () => {
-  it('barks', () => {
-    // test here
-    describe('when the dog is happy', => {
-      it('wags its tail', => {
+describe('a dog', function() => {
+    it('barks', function(done) => {
+      // test here
+      done();
+    }
+    describe('when the dog is happy', function() {
+      it('wags its tail', function(done) {
         // test here
+        done();
       });
     });
   });
@@ -401,47 +423,7 @@ Please open an issue on if you have suggestions for new labels, and
 if you notice some labels are missing on some repositories, then
 please open an issue on that repository.
 
-#### Type of Issue and Issue State
+#### State of work
 
-| Label name    | Description                                         |
-| ------------- | --------------------------------------------------- |
-| `enhancement` | Feature requests.                                   |
-| `bug`         | Confirmed bugs or reports.                          |
-| `question`    | Questions more than else (e.g. how do I do X).      |
-| `feedback`    | General feedback more than else.                    |
-| `help-wanted` | The team would appreciate resolving these issues.   |
-| `beginner`    | Less complex issues for starting teammates.         |
-| `more-information-needed` | Lacks information.                      |
-| `needs-reproduction`      | Haven't been reliably reproduced.       |
-| `blocked`                 | Issues blocked on other issues.         |
-| `duplicate`               | Duplicates of other issues.             |
-| `wontfix`                 | Team has decided not to fix it for now. |
-| `invalid`                 | Issues not valid (e.g. user errors).    |
-
-#### Topic Categories
-
-| Label name           | Description                                  |
-| -------------------- | -------------------------------------------- |
-| `windows`            | Related to app running on Windows.           |
-| `linux`              | Related to app running on Linux.             |
-| `mac`                | Related to Atom running on OSX.              |
-| `documentation`      | Related to any type of documentation.        |
-| `performance`        | Related to performance.                      |
-| `security`           | Related to security.                         |
-| `ui`                 | Related to visual design.                    |
-| `uncaught-exception` | Issues about uncaught exceptions             |
-| `crash`              | Reports of app completely crashing.          |
-| `auto-indent`        | Related to auto-indenting text.              |
-| `encoding`           | Related to character encoding.               |
-| `network`            | Related to network problems.                 |
-| `git`                | Related to Git functionality.                |
-
-#### Pull Request Labels
-
-| Label name           | Description                                  |
-| -------------------- | -------------------------------------------- |
-| `work-in-progress`   | Still being worked on, changes will follow.  |
-| `needs-review`       | Needs code review, and approval from team.   |
-| `under-review`       | Being reviewed by team.                      |
-| `requires-changes`   | Needs to be updated based on review.         |
-| `needs-testing`      | Need manual testing.                         |
+We use Zenhub pipelines to show current state of work on issues,
+enhancements, user stories or epics.

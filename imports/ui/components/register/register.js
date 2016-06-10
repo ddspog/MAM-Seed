@@ -14,6 +14,10 @@ import {
 
 import MonitorProvider from '../../services/monitor/monitor';
 
+import {
+    AfterLogInout
+} from '../../callbacks/redirect/redirectCallback';
+
 class Register {
     constructor($scope, $reactive, $state) {
         'ngInject';
@@ -32,38 +36,20 @@ class Register {
 
     register() {
         Accounts.createUser(this.credentials,
-            this.$bindToContext((err) => {
-                if (err) {
-                    this.error = err;
-                } else {
-                    this.$state.go('parties');
-                }
-            })
+            this.$bindToContext(AfterLogInout(this, 'parties'))
         );
     }
 
     registerGoogle() {
         Meteor.loginWithGoogle({
             requestPermissions: ['profile', 'email']
-        }, (err) => {
-            if (err) {
-                this.error = err;
-            } else {
-                this.$state.go('parties');
-            }
-        });
+        }, AfterLogInout(this, 'parties'));
     }
 
     registerFacebook() {
         Meteor.loginWithFacebook({
             requestPermissions: ['public_profile', 'email']
-        }, (err) => {
-            if (err) {
-                this.error = err;
-            } else {
-                this.$state.go('parties');
-            }
-        });
+        }, AfterLogInout(this, 'parties'));
     }
 }
 

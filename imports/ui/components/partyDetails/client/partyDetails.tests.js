@@ -18,9 +18,10 @@ import {
 should();
 
 describe('PartyDetails', function() {
-    beforeEach(function() {
+    beforeEach(function(done) {
         window.module(PartyDetails);
         spies.restoreAll();
+        done();
     });
 
     describe('controller', function() {
@@ -32,31 +33,34 @@ describe('PartyDetails', function() {
             public: true
         };
 
-        beforeEach(function() {
+        beforeEach(function(done) {
             inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyDetails, {
                     $scope: $rootScope.$new(true)
                 });
             });
+            done();
         });
 
         describe('save()', function() {
-            beforeEach(function() {
+            beforeEach(function(done) {
                 if (spies.update)
                     spies.update.restore();
                 spies.create('update', Parties, 'update');
 
                 controller.party = party;
                 controller.save();
+                done();
             });
 
-            it('should update a proper party', function() {
+            it('should update a proper party', function(done) {
                 expect(spies.update.lastCall.args[0]).to.be.deep.equal({
                     _id: party._id
                 });
+                done();
             });
 
-            it('should update with proper modifier', function() {
+            it('should update with proper modifier', function(done) {
                 expect(spies.update.lastCall.args[1]).to.be.deep.equal({
                     $set: {
                         name: party.name,
@@ -65,6 +69,7 @@ describe('PartyDetails', function() {
                         location: party.location
                     }
                 });
+                done();
             });
         });
     });

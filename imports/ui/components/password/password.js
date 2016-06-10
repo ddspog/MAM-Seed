@@ -8,6 +8,10 @@ import {
 
 import template from './password.html';
 
+import {
+    AfterLogInout
+} from '../../callbacks/redirect/redirectCallback';
+
 class Register {
     constructor($scope, $reactive, $state) {
         'ngInject';
@@ -24,13 +28,7 @@ class Register {
     }
 
     reset() {
-        Accounts.forgotPassword(this.credentials, this.$bindToContext((err) => {
-            if (err) {
-                this.error = err;
-            } else {
-                this.$state.go('parties');
-            }
-        }));
+        Accounts.forgotPassword(this.credentials, this.$bindToContext(AfterLogInout(this, 'login')));
     }
 }
 

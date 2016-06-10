@@ -13,9 +13,10 @@ import {
 
 describe('PartyRemove', function() {
     // Initialize module
-    beforeEach(function() {
+    beforeEach(function(done) {
         window.module(PartyRemove);
         spies.restoreAll();
+        done();
     });
 
     // Test inside controller
@@ -26,7 +27,7 @@ describe('PartyRemove', function() {
         };
 
         // Initialize controller
-        beforeEach(function() {
+        beforeEach(function(done) {
             inject(function($rootScope, $componentController) {
                 controller = $componentController(PartyRemove, {
                     $scope: $rootScope.$new(true)
@@ -34,20 +35,23 @@ describe('PartyRemove', function() {
                     party
                 });
             });
+            done();
         });
 
         describe('remove()', function() {
             // Monitors remove calls
-            beforeEach(function() {
+            beforeEach(function(done) {
                 if (spies.remove)
                     spies.remove.restore();
 
                 spies.create('remove', Parties, 'remove');
                 controller.remove();
+                done();
             });
 
-            it('should remove a party', function() {
+            it('should remove a party', function(done) {
                 expect(spies.remove).to.have.been.calledWith(party._id);
+                done();
             });
         });
     });

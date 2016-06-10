@@ -15,8 +15,11 @@ import {
 should();
 
 describe('PartiesSort', function() {
-    beforeEach(function() {
+    spies.restoreAll();
+
+    beforeEach(function(done) {
         window.module(PartiesSort);
+        done();
     });
 
     describe('controller', function() {
@@ -25,7 +28,7 @@ describe('PartiesSort', function() {
         const property = 'name';
         const order = -1;
 
-        beforeEach(function() {
+        beforeEach(function(done) {
             inject(function($rootScope, $componentController) {
                 controller = $componentController(PartiesSort, {
                     $scope: $rootScope.$new(true)
@@ -35,26 +38,32 @@ describe('PartiesSort', function() {
                     order
                 });
             });
+            done();
         });
 
-        it('should set property', function() {
+        it('should set property', function(done) {
             expect(controller.property).to.be.equal(property);
+            done();
         });
 
-        it('should set an order', function() {
+        it('should set an order', function(done) {
             expect(controller.order).to.be.equal(order);
+            done();
         });
 
-        it('should set onChange', function() {
+        it('should set onChange', function(done) {
             expect(controller.onChange).to.be.an(typeof onChange);
+            done();
         });
 
         describe('changed()', function() {
-            beforeEach(function() {
-              spies.restoreAll();
+            afterEach(function(done) {
+                if (spies.onChange)
+                    spies.onChange.restore();
+                done();
             });
 
-            it('should call onChange expression', function() {
+            it('should call onChange expression', function(done) {
                 spies.create('onChange', controller, 'onChange');
 
                 controller.changed();
@@ -64,6 +73,7 @@ describe('PartiesSort', function() {
                         [property]: order
                     }
                 });
+                done();
             });
         });
     });
