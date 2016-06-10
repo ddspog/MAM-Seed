@@ -21,6 +21,10 @@ import {
 
 import MonitorProvider from '../../services/monitor/monitor';
 
+import {
+    AfterLogInout
+} from '../../callbacks/redirect/redirectCallback';
+
 class Login {
     constructor($scope, $reactive, $state) {
         'ngInject';
@@ -39,38 +43,20 @@ class Login {
 
     login() {
         Meteor.loginWithPassword(this.credentials.email, this.credentials.password,
-            this.$bindToContext((err) => {
-                if (err) {
-                    this.error = err.reason;
-                } else {
-                    this.$state.go('parties');
-                }
-            })
+            this.$bindToContext(AfterLogInout(this, 'parties'))
         );
     }
 
     loginGoogle() {
         Meteor.loginWithGoogle({
             requestPermissions: ['profile', 'email']
-        }, (err) => {
-            if (err) {
-                this.error = err.reason;
-            } else {
-                this.$state.go('parties');
-            }
-        });
+        }, AfterLogInout(this, 'parties'));
     }
 
     loginFacebook() {
         Meteor.loginWithFacebook({
             requestPermissions: ['public_profile', 'email']
-        }, (err) => {
-            if (err) {
-                this.error = err.reason;
-            } else {
-                this.$state.go('parties');
-            }
-        });
+        }, AfterLogInout(this, 'parties'));
     }
 }
 
