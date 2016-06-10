@@ -8,6 +8,10 @@ import {
 
 import template from './partyRsvp.html';
 
+import {
+    AfterCallLog
+} from '../../callbacks/log/logCallback';
+
 class PartyRsvp {
     yes() {
         this.answer('yes');
@@ -31,15 +35,11 @@ class PartyRsvp {
     }
 
     answer(answer) {
-        Meteor.call('rsvp', this.party._id, answer, (error) => {
-            if (!process.env.TESTING) {
-                if (error) {
-                    console.error('Oops, unable to rsvp!');
-                } else {
-                    console.log('RSVP done!');
-                }
-            }
-        });
+        Meteor.call('rsvp', this.party._id, answer,
+            AfterCallLog({
+                done: 'RSVP done!',
+                error: 'Oops, unable to rsvp!'
+            }));
     }
     isAnswer(answer) {
         if (this.party) {
