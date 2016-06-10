@@ -9,6 +9,10 @@ import {
 } from 'meteor/meteor';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
@@ -24,15 +28,12 @@ describe('Login', function() {
         let controller;
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(Login, {
-                    $scope: $rootScope.$new(true)
-                });
-            });
-            done();
+            LoadController(Login, function(component) {
+                controller = component;
+            }, done);
         });
 
-        it('should have credentials all empty by default', function(done) {
+        it('should have credentials empty by default', function(done) {
             expect(controller.credentials).to.be.deep.equal({
                 email: '',
                 password: ''
@@ -46,8 +47,10 @@ describe('Login', function() {
         });
 
         describe('login()', function() {
-            let validEmail = 'validEmail';
-            let validPassword = 'validPassword';
+            let fakeuser = {
+                email: 'jon.snow@winter.com',
+                password: 'winteriscoming'
+            };
 
             afterEach(function(done) {
                 if (spies.login) {
@@ -60,12 +63,12 @@ describe('Login', function() {
                 spies.create('login', Meteor, 'loginWithPassword');
 
                 controller.credentials = {
-                    email: validEmail,
-                    password: validPassword
+                    email: fakeuser.email,
+                    password: fakeuser.password
                 };
                 controller.login();
 
-                expect(spies.login).to.be.calledWith(validEmail, validPassword);
+                expect(spies.login).to.be.calledWith(fakeuser.email, fakeuser.password);
                 done();
             });
         });
