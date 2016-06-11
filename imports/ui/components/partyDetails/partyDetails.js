@@ -17,6 +17,10 @@ import {
     name as PartyMap
 } from '../partyMap/partyMap';
 
+import {
+    AfterCallLog
+} from '../../callbacks/log/logCallback';
+
 class PartyDetails {
     constructor($stateParams, $scope, $reactive) {
         'ngInject';
@@ -61,15 +65,10 @@ class PartyDetails {
                 public: this.party.public,
                 location: this.party.location
             }
-        }, (error) => {
-            if (Meteor.isProduction) {
-                if (error) {
-                    console.log('Oops, unable to update the party...');
-                } else {
-                    console.log('Done!');
-                }
-            }
-        });
+        }, AfterCallLog({
+            done: 'Done!',
+            error: 'Oops, unable update the party!'
+        }));
     }
 }
 
