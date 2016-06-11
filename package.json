@@ -1,8 +1,8 @@
 {
-  "name": "mem-seed",
+  "name": "mam-seed",
   "private": true,
   "scripts": {
-    "start": "meteor --settings \"private\\settings\\development.json\"",
+    "start": "meteor --port=9000 --settings \"private\\settings\\development.json\"",
     "test": "meteor test --driver-package=practicalmeteor:mocha"
   },
   "dependencies": {
