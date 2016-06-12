@@ -22,41 +22,22 @@ import {
 import MonitorProvider from '../../services/monitor/monitor';
 
 import {
+    SocialGate
+} from '../../classes/socialGate/socialGate';
+
+import {
     AfterLogInout
 } from '../../callbacks/redirect/redirectCallback';
 
-class Login {
+class Login extends SocialGate {
     constructor($scope, $reactive, $state) {
-        'ngInject';
-
-        this.$state = $state;
-
-        $reactive(this).attach($scope);
-
-        this.credentials = {
-            email: '',
-            password: ''
-        };
-
-        this.error = '';
+        super($scope, $reactive, $state);
     }
 
     login() {
         Meteor.loginWithPassword(this.credentials.email, this.credentials.password,
             this.$bindToContext(AfterLogInout(this, 'parties'))
         );
-    }
-
-    loginGoogle() {
-        Meteor.loginWithGoogle({
-            requestPermissions: ['profile', 'email']
-        }, AfterLogInout(this, 'parties'));
-    }
-
-    loginFacebook() {
-        Meteor.loginWithFacebook({
-            requestPermissions: ['public_profile', 'email']
-        }, AfterLogInout(this, 'parties'));
     }
 }
 
