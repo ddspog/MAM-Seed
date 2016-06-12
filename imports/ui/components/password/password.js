@@ -9,22 +9,16 @@ import {
 import template from './password.html';
 
 import {
+    AccountsGate
+} from '../../classes/accountsGate/accountsGate';
+
+import {
     AfterLogInout
 } from '../../callbacks/redirect/redirectCallback';
 
-class Register {
+class Password extends AccountsGate {
     constructor($scope, $reactive, $state) {
-        'ngInject';
-
-        this.$state = $state;
-
-        $reactive(this).attach($scope);
-
-        this.credentials = {
-            email: ''
-        };
-
-        this.error = '';
+        super($scope, $reactive, $state);
     }
 
     reset() {
@@ -42,7 +36,7 @@ export default angular.module(name, [
     .component(name, {
         template,
         controllerAs: name,
-        controller: Register
+        controller: Password
     })
     .config(config);
 
