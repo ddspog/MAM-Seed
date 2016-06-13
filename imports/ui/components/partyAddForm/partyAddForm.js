@@ -9,6 +9,9 @@ import template from './partyAddForm.html';
 import {
     Parties
 } from '../../../api/parties/index';
+import {
+    name as PartyUpload
+} from '../partyUpload/partyUpload';
 
 class PartyAdd {
     constructor() {
@@ -36,7 +39,8 @@ const name = 'partyAdd';
 
 // Create a module
 export default angular.module(name, [
-    angularMeteor
+    angularMeteor,
+    PartyUpload
 ]).component(name, {
     template,
     bindings: {
