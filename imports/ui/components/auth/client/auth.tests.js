@@ -32,7 +32,7 @@ describe('Auth', function() {
         password: 'IDONTCARE',
         create: false,
         _id: ''
-    }
+    };
 
     if (!process.env.TESTING)
         process.env.TESTING = 1;

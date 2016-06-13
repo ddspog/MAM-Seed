@@ -9,6 +9,10 @@ import {
 } from '../../../configs/googleMap/googleMapConfig';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     chai
 } from 'meteor/practicalmeteor:chai';
 
@@ -42,25 +46,22 @@ describe('PartiesList', function() {
         let controller;
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartiesList, {
-                    $scope: $rootScope.$new(true)
-                });
-            });
-            done();
+            LoadController(PartiesList, function(component) {
+                controller = component;
+            }, done);
         });
 
-        it('should have perPage that equals 3 by default', function(done) {
+        it('should have perPage equals 3 by default', function(done) {
             expect(controller.perPage).to.be.equal(3);
             done();
         });
 
-        it('should have page that equals 1 by default', function(done) {
+        it('should have page equals 1 by default', function(done) {
             expect(controller.page).to.be.equal(1);
             done();
         });
 
-        it('should sort by name - ASC', function(done) {
+        it('should sort by name - ASC by default', function(done) {
             expect(controller.sort).to.be.deep.equal({
                 name: 1
             });

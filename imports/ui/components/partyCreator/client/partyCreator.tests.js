@@ -8,6 +8,10 @@ import {
 import 'angular-mocks';
 
 import {
+    LoadCaller
+} from '../../../modules/load/load';
+
+import {
     chai
 } from 'meteor/practicalmeteor:chai';
 
@@ -25,25 +29,16 @@ describe('PartyCreator', function() {
     });
 
     describe('controller', function() {
-        let $rootScope;
-        let $componentController;
+        let component;
         const party = {
             _id: 'partyId'
         };
 
         beforeEach(function(done) {
-            inject(function(_$rootScope_, _$componentController_) {
-                $rootScope = _$rootScope_;
-                $componentController = _$componentController_;
-            });
-            done();
+            LoadCaller(PartyCreator, function(caller) {
+                component = caller;
+            }, done);
         });
-
-        function component(bindings) {
-            return $componentController(PartyCreator, {
-                $scope: $rootScope.$new(true)
-            }, bindings);
-        }
 
         it('should return an empty string if there is no party', function(done) {
             const controller = component({

@@ -12,13 +12,21 @@ import {
 } from '../../../../api/parties/collection';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+import {
+    EnsuresUserCreation,
+    EnsuresLogin
+} from '../../../modules/ensure/ensure';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
 describe('PartyRsvp', function() {
-    let user = {
-        username: 'userCreatedName',
-        password: 'userCreatedPassword',
+    let fakeUser = {
+        username: 'tyrion_lanister',
+        password: 'IDONTCARE',
         create: false,
         _id: ''
     };
@@ -32,45 +40,24 @@ describe('PartyRsvp', function() {
     beforeEach(function(done) {
         window.module(PartyRsvp);
 
-        if (!user.create) {
-            Accounts.createUser({
-                username: user.username,
-                password: user.password
-            }, function(error) {
-                user.create = true;
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, function() {
-                        user._id = Meteor.userId();
-                        done();
-                    });
-                } else {
-                    user._id = Meteor.userId();
-                    done();
-                }
-            });
-        } else {
-            done();
-        }
+        EnsuresUserCreation(fakeUser, done);
     });
 
     describe('controller', function() {
         let controller;
         let party = {
-            _id: 'partyId',
-            name: 'partyName',
-            description: 'partyDescription',
-            owner: user._id
+            _id: '010100111010',
+            name: 'Testing Party',
+            description: 'Bring your friends and computers!',
+            owner: fakeUser._id
         };
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartyRsvp, {
-                    $scope: $rootScope.$new(true)
-                }, {
-                    party
-                });
+            LoadController(PartyRsvp, function(component) {
+                controller = component;
+            }, done, {
+                party
             });
-            done();
         });
 
         describe('answer()', function() {
@@ -78,16 +65,12 @@ describe('PartyRsvp', function() {
                 spies.create('callMethod', Meteor, 'call');
                 stubs.create('findOne', Parties, 'findOne').returns(party);
 
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, done);
-                } else {
-                    done();
-                }
+                EnsuresLogin(fakeUser, done);
             });
 
             ['yes', 'maybe', 'no'].forEach(function(answer) {
                 it(`should call rsvp with '${answer}'`, function(done) {
-                    controller.party.owner = user._id;
+                    controller.party.owner = fakeUser._id;
                     controller.answer(answer);
 
                     expect(spies.callMethod).to.be.calledWith('rsvp', party._id, answer);

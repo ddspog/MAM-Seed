@@ -69,6 +69,11 @@ describe('PartyAddForm', function() {
             });
         });
 
+        it('should set done', function(done) {
+            expect(controller.done).to.be.an(typeof doneCallback);
+            done();
+        });
+
         describe('reset()', function() {
             it('should clean up party object', function(done) {
                 controller.party = party;
