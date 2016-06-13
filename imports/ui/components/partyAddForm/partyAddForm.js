@@ -5,7 +5,7 @@ import {
     Meteor
 } from 'meteor/meteor';
 
-import template from './partyAdd.html';
+import template from './partyAddForm.html';
 import {
     Parties
 } from '../../../api/parties/index';

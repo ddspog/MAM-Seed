@@ -18,8 +18,9 @@ import {
 describe('Register', function() {
     spies.restoreAll();
 
-    if (!process.env.TESTING)
+    if (!process.env.TESTING) {
         process.env.TESTING = 1;
+    }
 
     beforeEach(function(done) {
         window.module(Register);
@@ -56,8 +57,9 @@ describe('Register', function() {
             let validPassword = 'validPassword';
 
             afterEach(function(done) {
-                if (spies.register)
+                if (spies.register) {
                     spies.register.restore();
+                }
                 done();
             });
 
@@ -75,22 +77,22 @@ describe('Register', function() {
             });
         });
 
-        describe('registerGoogle()', function() {
+        describe('loginGoogle()', function() {
             it('should call Meteor.loginWithGoogle', function(done) {
                 spies.create('register', Meteor, 'loginWithGoogle');
 
-                controller.registerGoogle();
+                controller.loginGoogle();
 
                 expect(spies.register).to.be.called;
                 done();
             });
         });
 
-        describe('registerFacebook()', function() {
+        describe('loginFacebook()', function() {
             it('should call Meteor.loginWithFacebook', function(done) {
                 spies.create('register', Meteor, 'loginWithFacebook');
 
-                controller.registerFacebook();
+                controller.loginFacebook();
 
                 expect(spies.register).to.be.called;
                 done();

@@ -15,41 +15,22 @@ import {
 import MonitorProvider from '../../services/monitor/monitor';
 
 import {
+    SocialGate
+} from '../../classes/socialGate/socialGate';
+
+import {
     AfterLogInout
 } from '../../callbacks/redirect/redirectCallback';
 
-class Register {
+class Register extends SocialGate {
     constructor($scope, $reactive, $state) {
-        'ngInject';
-
-        this.$state = $state;
-
-        $reactive(this).attach($scope);
-
-        this.credentials = {
-            email: '',
-            password: ''
-        };
-
-        this.error = '';
+        super($scope, $reactive, $state);
     }
 
     register() {
         Accounts.createUser(this.credentials,
             this.$bindToContext(AfterLogInout(this, 'parties'))
         );
-    }
-
-    registerGoogle() {
-        Meteor.loginWithGoogle({
-            requestPermissions: ['profile', 'email']
-        }, AfterLogInout(this, 'parties'));
-    }
-
-    registerFacebook() {
-        Meteor.loginWithFacebook({
-            requestPermissions: ['public_profile', 'email']
-        }, AfterLogInout(this, 'parties'));
     }
 }
 

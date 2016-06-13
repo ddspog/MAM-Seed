@@ -6,11 +6,19 @@ import {
 } from 'meteor/accounts-base';
 
 import {
-    name as PartyAdd
-} from '../partyAdd';
+    name as PartyAddForm
+} from '../partyAddForm';
 import {
     Parties
 } from '../../../../api/parties';
+
+import {
+    LoadController
+} from '../../../modules/load/load';
+import {
+    EnsuresUserCreation,
+    EnsuresLogin
+} from '../../../modules/ensure/ensure';
 
 import 'angular-mocks';
 
@@ -24,39 +32,21 @@ import {
 
 should();
 
-describe('PartyAdd', function() {
-    let user = {
-        username: 'userCreatedName',
-        password: 'userCreatedPassword',
+describe('PartyAddForm', function() {
+    let fakeUser = {
+        username: 'tyrion_lanister',
+        password: 'IDONTCARE',
         create: false,
         _id: ''
-    }
+    };
 
     spies.restoreAll();
     stubs.restoreAll();
     // Initialize module
     beforeEach(function(done) {
-        window.module(PartyAdd);
+        window.module(PartyAddForm);
 
-        if (!user.create) {
-            Accounts.createUser({
-                username: user.username,
-                password: user.password
-            }, function(error) {
-                user.create = true;
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, function() {
-                        user._id = Meteor.userId();
-                        done();
-                    });
-                } else {
-                    user._id = Meteor.userId();
-                    done();
-                }
-            });
-        } else {
-            done();
-        }
+        EnsuresUserCreation(fakeUser, done);
     });
 
     // Test inside controller
@@ -72,14 +62,11 @@ describe('PartyAdd', function() {
 
         // Initialize controller
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartyAdd, {
-                    $scope: $rootScope.$new(true)
-                }, {
-                    done: doneCallback
-                });
+            LoadController(PartyAddForm, function(component) {
+                controller = component;
+            }, done, {
+                done: doneCallback
             });
-            done();
         });
 
         describe('reset()', function() {
@@ -100,22 +87,19 @@ describe('PartyAdd', function() {
 
                 controller.party = party;
 
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, function() {
-                        controller.submit();
-                        done();
-                    });
-                } else {
+                EnsuresLogin(fakeUser, function(err) {
                     controller.submit();
                     done();
-                }
+                });
             });
 
             afterEach(function(done) {
-                if (spies.insert)
+                if (spies.insert) {
                     spies.insert.restore();
-                if (spies.reset)
+                }
+                if (spies.reset) {
                     spies.reset.restore();
+                }
                 done();
             });
 
