@@ -5,6 +5,10 @@ import {
 import 'angular-mocks';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     chai
 } from 'meteor/practicalmeteor:chai';
 
@@ -29,16 +33,13 @@ describe('PartiesSort', function() {
         const order = -1;
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartiesSort, {
-                    $scope: $rootScope.$new(true)
-                }, {
-                    onChange,
-                    property,
-                    order
-                });
+            LoadController(PartiesSort, function(component) {
+                controller = component;
+            }, done, {
+                onChange,
+                property,
+                order
             });
-            done();
         });
 
         it('should set property', function(done) {
@@ -63,7 +64,7 @@ describe('PartiesSort', function() {
                 done();
             });
 
-            it('should call onChange expression', function(done) {
+            it('should call onChange', function(done) {
                 spies.create('onChange', controller, 'onChange');
 
                 controller.changed();

@@ -8,6 +8,10 @@ import {
 import 'angular-mocks';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     chai
 } from 'meteor/practicalmeteor:chai';
 
@@ -34,12 +38,9 @@ describe('PartyDetails', function() {
         };
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartyDetails, {
-                    $scope: $rootScope.$new(true)
-                });
-            });
-            done();
+            LoadController(PartyDetails, function(component) {
+                controller = component;
+            }, done);
         });
 
         describe('save()', function() {

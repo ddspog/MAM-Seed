@@ -12,10 +12,17 @@ import {
 } from 'meteor/accounts-base';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
 describe('Password', function() {
+    if (!process.env.TESTING)
+        process.env.TESTING = 1;
+
     spies.restoreAll();
 
     beforeEach(function(done) {
@@ -27,12 +34,9 @@ describe('Password', function() {
         let controller;
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(Password, {
-                    $scope: $rootScope.$new(true)
-                });
-            });
-            done();
+            LoadController(Password, function(component) {
+                controller = component;
+            }, done);
         });
 
         it('should have credentials all empty by default', function(done) {
@@ -48,7 +52,7 @@ describe('Password', function() {
         });
 
         describe('reset()', function() {
-            let validEmail = 'validEmail';
+            let validEmail = 'tyrion.lannister@meeren.com';
 
             afterEach(function(done) {
                 if (spies.forgot) {

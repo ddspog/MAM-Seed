@@ -12,16 +12,24 @@ import {
 } from '../../../../api/parties/collection';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+import {
+    EnsuresUserCreation,
+    EnsuresLogin
+} from '../../../modules/ensure/ensure';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
 describe('PartyUninvited', function() {
-    let user = {
-        username: 'userCreatedName',
-        password: 'userCreatedPassword',
+    let fakeUser = {
+        username: 'tyrion_lanister',
+        password: 'IDONTCARE',
         create: false,
         _id: ''
-    }
+    };
 
     if (!process.env.TESTING)
         process.env.TESTING = 1;
@@ -32,53 +40,32 @@ describe('PartyUninvited', function() {
     beforeEach(function(done) {
         window.module(PartyUninvited);
 
-        if (!user.create) {
-            Accounts.createUser({
-                username: user.username,
-                password: user.password
-            }, function(error) {
-                user.create = true;
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, function() {
-                        user._id = Meteor.userId();
-                        done();
-                    });
-                } else {
-                    user._id = Meteor.userId();
-                    done();
-                }
-            });
-        } else {
-            done();
-        }
+        EnsuresUserCreation(fakeUser, done);
     });
 
     describe('controller', function() {
         let controller;
         let party = {
-            _id: 'partyId',
-            name: 'partyName',
-            description: 'partyDescription',
-            owner: user._id
+            _id: '010100111010',
+            name: 'Testing Party',
+            description: 'Bring your friends and computers!',
+            owner: fakeUser._id
         };
         let userNotInvited = {
-            username: 'userNotInvitedName',
-            password: 'userNotInvitedPassword',
+            username: 'cersei_lannister',
+            password: 'BROLOVE',
             emails: [{
-                address: 'userNotInvitedEmail'
+                address: 'cersei.lannister@kingslanding.com'
             }],
-            _id: 'userNotInvitedId'
+            _id: 'IChooseViolence'
         }
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartyUninvited, {
-                    $scope: $rootScope.$new(true)
-                }, {
-                    party
-                });
+            LoadController(PartyUninvited, function(component) {
+                controller = component;
+            }, done, {
+                party
             });
-            done();
         });
 
         describe('invite()', function() {
@@ -86,17 +73,13 @@ describe('PartyUninvited', function() {
                 spies.create('callMethod', Meteor, 'call');
                 stubs.create('findOne', Parties, 'findOne').returns(party);
                 stubs.create('usersFindOne', Meteor.users, 'findOne')
-                  .returns(userNotInvited);
+                    .returns(userNotInvited);
 
-                if (!Meteor.userId()) {
-                    Meteor.loginWithPassword(user.username, user.password, done);
-                } else {
-                    done();
-                }
+                EnsuresLogin(fakeUser, done);
             });
 
             it('should call invite with user not invited', function(done) {
-                controller.party.owner = user._id;
+                controller.party.owner = fakeUser._id;
                 controller.invite(userNotInvited);
 
                 expect(spies.callMethod).to.be.calledWith('invite', party._id, userNotInvited._id);

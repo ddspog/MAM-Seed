@@ -12,6 +12,10 @@ import {
 } from 'meteor/accounts-base';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
@@ -31,12 +35,9 @@ describe('Register', function() {
         let controller;
 
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(Register, {
-                    $scope: $rootScope.$new(true)
-                });
-            });
-            done();
+            LoadController(Register, function(component) {
+                controller = component;
+            }, done);
         });
 
         it('should have credentials all empty by default', function(done) {
@@ -53,8 +54,8 @@ describe('Register', function() {
         });
 
         describe('register()', function() {
-            let validEmail = 'validEmail';
-            let validPassword = 'validPassword';
+            let validEmail = 'tyrion.lannister@meeren.com';
+            let validPassword = 'IDONTCARE';
 
             afterEach(function(done) {
                 if (spies.register) {

@@ -8,6 +8,10 @@ import {
 import 'angular-mocks';
 
 import {
+    LoadController
+} from '../../../modules/load/load';
+
+import {
     sinon
 } from 'meteor/practicalmeteor:sinon';
 
@@ -28,14 +32,11 @@ describe('PartyRemove', function() {
 
         // Initialize controller
         beforeEach(function(done) {
-            inject(function($rootScope, $componentController) {
-                controller = $componentController(PartyRemove, {
-                    $scope: $rootScope.$new(true)
-                }, {
-                    party
-                });
+            LoadController(PartyRemove, function(component) {
+                controller = component;
+            }, done, {
+                party
             });
-            done();
         });
 
         describe('remove()', function() {
