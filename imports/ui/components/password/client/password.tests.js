@@ -20,8 +20,9 @@ import {
 } from 'meteor/practicalmeteor:sinon';
 
 describe('Password', function() {
-    if (!process.env.TESTING)
+    if (!process.env.TESTING) {
         process.env.TESTING = 1;
+    }
 
     spies.restoreAll();
 
