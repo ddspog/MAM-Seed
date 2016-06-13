@@ -77,22 +77,22 @@ describe('Register', function() {
             });
         });
 
-        describe('registerGoogle()', function() {
+        describe('loginGoogle()', function() {
             it('should call Meteor.loginWithGoogle', function(done) {
                 spies.create('register', Meteor, 'loginWithGoogle');
 
-                controller.registerGoogle();
+                controller.loginGoogle();
 
                 expect(spies.register).to.be.called;
                 done();
             });
         });
 
-        describe('registerFacebook()', function() {
+        describe('loginFacebook()', function() {
             it('should call Meteor.loginWithFacebook', function(done) {
                 spies.create('register', Meteor, 'loginWithFacebook');
 
-                controller.registerFacebook();
+                controller.loginFacebook();
 
                 expect(spies.register).to.be.called;
                 done();
