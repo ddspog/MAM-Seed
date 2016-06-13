@@ -34,6 +34,9 @@ describe('Auth', function() {
         _id: ''
     }
 
+    if (!process.env.TESTING)
+        process.env.TESTING = 1;
+
     beforeEach(function(done) {
         window.module(Auth);
 
