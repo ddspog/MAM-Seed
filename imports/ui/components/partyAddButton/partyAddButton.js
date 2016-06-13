@@ -9,8 +9,8 @@ import {
 } from '../../filters/mdiIcon/mdiIconFilter';
 
 import {
-    name as PartyAdd
-} from '../partyAdd/partyAdd';
+    name as PartyAddForm
+} from '../partyAddForm/partyAddForm';
 
 class PartyAddButton {
     constructor($mdDialog, $mdMedia) {
@@ -44,7 +44,7 @@ const name = 'partyAddButton';
 // create a module
 export default angular.module(name, [
     angularMeteor,
-    PartyAdd
+    PartyAddForm
 ]).component(name, {
     template: buttonTemplate,
     controllerAs: name,
