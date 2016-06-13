@@ -36,5 +36,9 @@ export function EnsuresUserCreation(user, done) {
 }
 
 export function EnsuresLogin(user, done) {
-    Meteor.loginWithPassword(user.username, user.password, done);
+    if (!Meteor.userId()) {
+        Meteor.loginWithPassword(user.username, user.password, done);
+    } else {
+        done();
+    }
 }
