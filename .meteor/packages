@@ -33,3 +33,5 @@ practicalmeteor:sinon
 practicalmeteor:chai
 practicalmeteor:mocha
 practicalmeteor:mocha-console-runner
+jalik:ufs
+jalik:ufs-gridfs
