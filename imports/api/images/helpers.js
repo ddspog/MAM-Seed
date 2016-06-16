@@ -3,8 +3,8 @@
  *
  * https://github.com/ebidel/filer.js/blob/master/src/filer.js#L137
  *
- * @param  {String} dataURL
- * @return {Blob}
+ * @param  {String} dataURL Data to convert
+ * @return {Blob}           Binary Object
  */
 export function dataURLToBlob(dataUrl) {
     const BASE64_MARKER = ';base64,';
@@ -41,7 +41,7 @@ export function dataURLToBlob(dataUrl) {
  * @param  {Function}   callback      Success callback with converted object as a first argument
  * @param  {Function}   errorCallback Error callback with error as a first argument
  */
-export function blobToArrayBuffer(bloc, callback, errorCallback) {
+export function blobToArrayBuffer(blob, callback, errorCallback) {
     const reader = new FileReader();
 
     reader.onload = (e) => {
