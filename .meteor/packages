@@ -16,7 +16,6 @@ standard-minifier-js    # JS minifier run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 
 pbastowski:angular-babel
-urigo:static-templates
 accounts-password
 dotansimha:accounts-ui-angular
 accounts-facebook
@@ -35,3 +34,4 @@ practicalmeteor:mocha
 practicalmeteor:mocha-console-runner
 jalik:ufs
 jalik:ufs-gridfs
+pbastowski:angular-templates
