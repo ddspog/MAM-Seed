@@ -6,6 +6,7 @@ import {
 } from 'meteor/meteor';
 
 import template from './partyAddForm.html';
+
 import {
     Parties
 } from '../../../api/parties/index';
@@ -13,7 +14,7 @@ import {
     name as PartyUpload
 } from '../partyUpload/partyUpload';
 
-class PartyAdd {
+class PartyAddForm {
     constructor() {
         this.party = {};
     }
@@ -35,7 +36,7 @@ class PartyAdd {
     }
 }
 
-const name = 'partyAdd';
+const name = 'partyAddForm';
 
 // Create a module
 export default angular.module(name, [
@@ -47,5 +48,5 @@ export default angular.module(name, [
         done: '&?'
     },
     controllerAs: name,
-    controller: PartyAdd
-})
+    controller: PartyAddForm
+});

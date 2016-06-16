@@ -1,5 +1,5 @@
 <div layout="column">
-    <div ngf-drop ngf-select ngf-change="partyUpload.addImages($files)" nfg-drag-over-class="{accept:'dragover', reject=" dragover-err ", delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'image/*'" ngf-drop-available="true"
+    <div ngf-drop ngf-select ngf-change="partyUpload.addImages($files)" nfg-drag-over-class="{accept:'dragover', reject='dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="false" ngf-accept="'image/*'" ngf-drop-available="true"
         ng-hide="partyUpload.cropImgSrc">
         <div>Click here to select image</div>
         <div>
@@ -10,6 +10,11 @@
     <div class="ng-crop" ng-show="partyUpload.cropImgSrc" layout="column">
         <div>
             <h3>Edit & Crop</h3>
+        </div>
+        <div class="ng-crop-container">
+            <img-crop image="partyUpload.cropImgSrc" result-image="partyUpload.myCroppedImage" area-type="square"></img-crop>
+        </div>
+        <div>
             <md-button class="md-primary" ng-click="partyUpload.save()">
                 Save Image
             </md-button>
@@ -17,8 +22,10 @@
                 Cancel
             </md-button>
         </div>
-        <div class="ng-crop-container">
-            <img-crop image="partyUpload.cropImgSrc" result-image="partyUpload.myCroppedImage" area-type="square"></img-crop>
+    </div>
+    <div layout="row" class="images-container-title" sv-root sv-part="partyUpload.thumbs">
+        <div sv-element class="party-image-container" ng-class="{'main-image': $index === 0}" ng-repeat="thumb in partyUpload.thumbs">
+            <img draggable="false" ng-src="{{ thumb.url }}">
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import ngFileUpload from 'ng-file-upload';
+import 'angular-sortable-view';
 import 'ng-img-crop/compile/minified/ng-img-crop';
 import 'ng-img-crop/compile/minified/ng-img-crop.css';
 
@@ -10,11 +11,40 @@ import {
 
 import template from './partyUpload.html';
 
+import {
+    Thumbs,
+    upload
+} from '../../../api/images';
+
 class PartyUpload {
     constructor($scope, $reactive) {
         'ngInject';
 
         $reactive(this).attach($scope);
+
+        this.uploaded = [];
+
+        this.subscribe('thumbs', () => [
+            this.getReactively('files', true) || []
+        ]);
+
+        this.helpers({
+            thumbs() {
+                console.log(Thumbs.find({
+                    originalStore: 'images',
+                    originalId: {
+                        $in: this.getReactively('files', true) || []
+                    }
+                }).fetch()[0]);
+                console.log(this.files);
+                return Thumbs.find({
+                    originalStore: 'images',
+                    originalId: {
+                        $in: this.getReactively('files', true) || []
+                    }
+                });
+            }
+        });
     }
 
     addImages(files) {
@@ -23,15 +53,35 @@ class PartyUpload {
 
             const reader = new FileReader;
 
-            reader.onLoad = this.$bindToContext((e) => {
+            reader.onload = this.$bindToContext((e) => {
                 this.cropImgSrc = e.target.result;
                 this.myCroppedImage = '';
             });
 
-            reader.readAsDataUrl(files[0]);
+            reader.readAsDataURL(files[0]);
         } else {
             this.cropImgSrc = undefined;
         }
+    }
+
+    save() {
+        upload(this.myCroppedImage, this.currentFile.name, this.$bindToContext((file) => {
+            this.uploaded.push(file);
+
+            if (!this.files || !this.files.length) {
+                this.files = [];
+            }
+            this.files.push(file._id);
+
+            this.reset();
+        }), (e) => {
+            console.log('Oops, something went wrong', e);
+        });
+    }
+
+    reset() {
+        this.cropImgSrc = undefined;
+        this.myCroppedImage = '';
     }
 }
 
@@ -41,9 +91,13 @@ const name = 'partyUpload';
 export default angular.module(name, [
     angularMeteor,
     ngFileUpload,
-    'ngImgCrop'
+    'ngImgCrop',
+    'angular-sortable-view'
 ]).component(name, {
     template,
+    bindings: {
+      files: '=?'
+    },
     controllerAs: name,
     controller: PartyUpload
 });
