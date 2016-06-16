@@ -5,7 +5,7 @@
     <md-button aria-label="Register" ui-sref="register" ng-hide="auth.isLoggedIn">
         Register
     </md-button>
-    <md-button class="md-button-icon" aria-label="Logout" ng-click="auth.logout()" ng-show="auth.isLoggedIn" aria-label="Logout">
+    <md-button class="md-button-icon" aria-label="Logout" ng-click="auth.logout()" ng-show="auth.isLoggedIn">
         <md-icon class="xs-va-mid xs-fsz-xlg">{{ 'logout' | mdiIconFilter }}</md-icon>
     </md-button>
     <div ng-show="auth.isLoggedIn" class="lg-pt-7">
