@@ -35,3 +35,5 @@ practicalmeteor:mocha-console-runner
 jalik:ufs
 jalik:ufs-gridfs
 pbastowski:angular-templates
+meteor-tool
+cfs:graphicsmagick
